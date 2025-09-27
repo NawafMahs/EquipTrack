@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lprGL91iubo=",
+  "success": true,
+  "projectFilePath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/EquipTrack.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/swb/.nuget/packages/system.text.json/9.0.0/system.text.json.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

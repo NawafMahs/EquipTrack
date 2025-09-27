@@ -1,0 +1,6 @@
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/EquipTrack.Tests.Integration.csproj.AssemblyReference.cache
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/MvcTestingAppManifest.json
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/EquipTrack.Tests.Integration.GeneratedMSBuildEditorConfig.editorconfig
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/EquipTrack.Tests.Integration.AssemblyInfoInputs.cache
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/EquipTrack.Tests.Integration.AssemblyInfo.cs
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net8.0/EquipTrack.Tests.Integration.csproj.CoreCompileInputs.cache

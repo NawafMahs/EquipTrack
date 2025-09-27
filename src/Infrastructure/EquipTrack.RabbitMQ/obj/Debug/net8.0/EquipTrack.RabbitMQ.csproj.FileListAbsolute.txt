@@ -1,0 +1,12 @@
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/bin/Debug/net8.0/EquipTrack.RabbitMQ.deps.json
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/bin/Debug/net8.0/EquipTrack.RabbitMQ.dll
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/bin/Debug/net8.0/EquipTrack.RabbitMQ.pdb
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.GeneratedMSBuildEditorConfig.editorconfig
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.AssemblyInfoInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.AssemblyInfo.cs
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.dll
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/refint/EquipTrack.RabbitMQ.dll
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.pdb
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/ref/EquipTrack.RabbitMQ.dll
+/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.RabbitMQ/obj/Debug/net8.0/EquipTrack.RabbitMQ.csproj.AssemblyReference.cache

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cQ8UU58ZUJg=",
+  "success": true,
+  "projectFilePath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/EquipTrack.Core.csproj",
+  "expectedPackageFiles": [
+    "/home/swb/.nuget/packages/system.text.json/9.0.0/system.text.json.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

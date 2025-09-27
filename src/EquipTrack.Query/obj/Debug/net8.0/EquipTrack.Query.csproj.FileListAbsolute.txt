@@ -1,0 +1,17 @@
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.csproj.AssemblyReference.cache
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.GeneratedMSBuildEditorConfig.editorconfig
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.AssemblyInfoInputs.cache
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.AssemblyInfo.cs
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Query.deps.json
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Query.dll
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Query.pdb
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Core.dll
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Domain.dll
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Domain.pdb
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/bin/Debug/net8.0/EquipTrack.Core.pdb
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTra.6E30570F.Up2Date
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.dll
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/refint/EquipTrack.Query.dll
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/EquipTrack.Query.pdb
+/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/obj/Debug/net8.0/ref/EquipTrack.Query.dll

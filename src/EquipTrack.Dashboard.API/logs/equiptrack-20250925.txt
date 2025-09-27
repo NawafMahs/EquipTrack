@@ -1,0 +1,17 @@
+2025-09-25 13:32:45.511 +03:00 [ERR] An error occurred while migrating or seeding the database
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning': The model for context 'EquipTrackDbContext' has pending changes. Add a new migration before updating the database. This exception can be suppressed or logged by passing event ID 'RelationalEventId.PendingModelChangesWarning' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`1.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam arg)
+   at Microsoft.EntityFrameworkCore.Diagnostics.RelationalLoggerExtensions.PendingModelChangesWarning(IDiagnosticsLogger`1 diagnostics, Type contextType)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at Program.<Main>$(String[] args) in /media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/Program.cs:line 144
+2025-09-25 13:32:45.593 +03:00 [INF] Starting EquipTrack CMMS API
+2025-09-25 13:32:45.601 +03:00 [INF] User profile is available. Using '/home/swb/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-25 13:32:45.610 +03:00 [INF] Creating key {1bce3ec4-2364-429d-b735-f8f47fbd3e7b} with creation date 2025-09-25 10:32:45Z, activation date 2025-09-25 10:32:45Z, and expiration date 2025-12-24 10:32:45Z.
+2025-09-25 13:32:45.618 +03:00 [WRN] No XML encryptor configured. Key {1bce3ec4-2364-429d-b735-f8f47fbd3e7b} may be persisted to storage in unencrypted form.
+2025-09-25 13:32:45.621 +03:00 [INF] Writing data to file '/home/swb/.aspnet/DataProtection-Keys/key-1bce3ec4-2364-429d-b735-f8f47fbd3e7b.xml'.
+2025-09-25 13:32:45.653 +03:00 [INF] Now listening on: http://localhost:5124
+2025-09-25 13:32:45.655 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-25 13:32:45.655 +03:00 [INF] Hosting environment: Development
+2025-09-25 13:32:45.655 +03:00 [INF] Content root path: /media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API
+2025-09-25 13:32:51.543 +03:00 [INF] Application is shutting down...

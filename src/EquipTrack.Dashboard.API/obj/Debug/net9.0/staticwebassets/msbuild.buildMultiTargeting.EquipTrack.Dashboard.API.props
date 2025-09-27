@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/EquipTrack.Dashboard.API.props" />
+</Project>

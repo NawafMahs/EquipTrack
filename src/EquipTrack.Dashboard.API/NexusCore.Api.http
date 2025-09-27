@@ -1,0 +1,539 @@
+@EquipTrack.Api_HostAddress = http://localhost:5124
+@token = your_jwt_token_here
+
+### ============================================
+### AUTHENTICATION ENDPOINTS
+### ============================================
+
+### Login
+POST {{EquipTrack.Api_HostAddress}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@equiptrack.com",
+  "password": "Admin123!"
+}
+
+### Register User
+POST {{EquipTrack.Api_HostAddress}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "test@equiptrack.com",
+  "password": "Test123!",
+  "phoneNumber": "+1-555-9999",
+  "role": "Technician"
+}
+
+### Validate Token
+POST {{EquipTrack.Api_HostAddress}}/api/v1/auth/validate-token
+Content-Type: application/json
+
+"{{token}}"
+
+### Logout
+POST {{EquipTrack.Api_HostAddress}}/api/v1/auth/logout
+Authorization: Bearer {{token}}
+
+### ============================================
+### ASSETS ENDPOINTS
+### ============================================
+
+### Get All Assets
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets?page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Assets by Status
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets?status=Active&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Assets by Location
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets?location=Production&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Asset by ID
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets/{{assetId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Asset
+POST {{EquipTrack.Api_HostAddress}}/api/v1/assets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Test Equipment",
+  "description": "Test equipment for demonstration",
+  "serialNumber": "TEST-001-2024",
+  "model": "TestModel-100",
+  "manufacturer": "TestManufacturer Inc.",
+  "location": "Test Floor - Section 1",
+  "status": "Active",
+  "purchaseDate": "2024-01-15T00:00:00Z",
+  "purchasePrice": 15000.00,
+  "warrantyExpiryDate": "2026-01-15T00:00:00Z",
+  "notes": "Test equipment for API demonstration"
+}
+
+### Update Asset
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/assets/{{assetId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Equipment",
+  "description": "Updated test equipment description",
+  "serialNumber": "TEST-001-2024",
+  "model": "TestModel-100",
+  "manufacturer": "TestManufacturer Inc.",
+  "location": "Test Floor - Section 2",
+  "status": "Active",
+  "purchaseDate": "2024-01-15T00:00:00Z",
+  "purchasePrice": 16000.00,
+  "warrantyExpiryDate": "2026-01-15T00:00:00Z",
+  "notes": "Updated test equipment"
+}
+
+### Delete Asset
+DELETE {{EquipTrack.Api_HostAddress}}/api/v1/assets/{{assetId}}
+Authorization: Bearer {{token}}
+
+### Get Asset Statistics
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Assets Due for Maintenance
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets/maintenance-due
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### WORK ORDERS ENDPOINTS
+### ============================================
+
+### Get All Work Orders
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders?page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Work Orders by Status
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders?status=Open&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Work Orders by Priority
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders?priority=High&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Work Order by ID
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders/{{workOrderId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Work Order
+POST {{EquipTrack.Api_HostAddress}}/api/v1/workorders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Test Work Order",
+  "description": "Test work order for API demonstration",
+  "priority": "Medium",
+  "type": "Corrective",
+  "scheduledDate": "2024-12-20T10:00:00Z",
+  "estimatedHours": 4.0,
+  "estimatedCost": 200.00,
+  "assetRef": "{{assetId}}",
+  "assignedToUserRef": "{{userId}}"
+}
+
+### Update Work Order
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/workorders/{{workOrderId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Updated Test Work Order",
+  "description": "Updated test work order description",
+  "priority": "High",
+  "type": "Corrective",
+  "scheduledDate": "2024-12-21T10:00:00Z",
+  "estimatedHours": 5.0,
+  "estimatedCost": 250.00,
+  "assignedToUserRef": "{{userId}}"
+}
+
+### Start Work Order
+POST {{EquipTrack.Api_HostAddress}}/api/v1/workorders/{{workOrderId}}/start
+Authorization: Bearer {{token}}
+
+### Complete Work Order
+POST {{EquipTrack.Api_HostAddress}}/api/v1/workorders/{{workOrderId}}/complete
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "actualHours": 4.5,
+  "actualCost": 225.00,
+  "completionNotes": "Work completed successfully. Replaced faulty component."
+}
+
+### Cancel Work Order
+POST {{EquipTrack.Api_HostAddress}}/api/v1/workorders/{{workOrderId}}/cancel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+"Work order cancelled due to equipment unavailability"
+
+### Get My Assigned Work Orders
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders/my-assignments
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Work Order Statistics
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### SPARE PARTS ENDPOINTS
+### ============================================
+
+### Get All Spare Parts
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts?page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Spare Parts by Category
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts?category=Filters&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Search Spare Parts
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts?search=filter&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Low Stock Spare Parts
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts?lowStock=true
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Spare Part by ID
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/{{sparePartId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Spare Part
+POST {{EquipTrack.Api_HostAddress}}/api/v1/spareparts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Test Spare Part",
+  "description": "Test spare part for API demonstration",
+  "partNumber": "TEST-SP-001",
+  "category": "Test Category",
+  "supplier": "Test Supplier Inc.",
+  "unitPrice": 25.99,
+  "currentStock": 50,
+  "minimumStock": 10,
+  "unit": "pieces",
+  "location": "Test Warehouse - Shelf T1",
+  "notes": "Test spare part for demonstration"
+}
+
+### Update Spare Part
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/{{sparePartId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Spare Part",
+  "description": "Updated test spare part description",
+  "partNumber": "TEST-SP-001",
+  "category": "Updated Category",
+  "supplier": "Test Supplier Inc.",
+  "unitPrice": 27.99,
+  "currentStock": 45,
+  "minimumStock": 10,
+  "unit": "pieces",
+  "location": "Test Warehouse - Shelf T2",
+  "notes": "Updated test spare part"
+}
+
+### Update Spare Part Stock
+PATCH {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/{{sparePartId}}/stock
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "quantity": -5,
+  "reason": "Used in work order"
+}
+
+### Delete Spare Part
+DELETE {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/{{sparePartId}}
+Authorization: Bearer {{token}}
+
+### Get Low Stock Items
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/low-stock
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Spare Part Categories
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/categories
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Spare Part Suppliers
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/suppliers
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Spare Part Statistics
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### USERS ENDPOINTS
+### ============================================
+
+### Get All Users (Admin/Manager only)
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users?page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Users by Role
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users?role=Technician&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Search Users
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users?search=john&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get User by ID
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users/{{userId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Current User Profile
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users/profile
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create User (Admin only)
+POST {{EquipTrack.Api_HostAddress}}/api/v1/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firstName": "New",
+  "lastName": "User",
+  "email": "newuser@equiptrack.com",
+  "password": "NewUser123!",
+  "phoneNumber": "+1-555-8888",
+  "role": "Technician",
+  "isActive": true
+}
+
+### Update User
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/users/{{userId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firstName": "Updated",
+  "lastName": "User",
+  "email": "updateduser@equiptrack.com",
+  "phoneNumber": "+1-555-7777",
+  "role": "Technician",
+  "isActive": true
+}
+
+### Update User Profile
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/users/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firstName": "Updated",
+  "lastName": "Profile",
+  "email": "updated@equiptrack.com",
+  "phoneNumber": "+1-555-6666"
+}
+
+### Change Password
+POST {{EquipTrack.Api_HostAddress}}/api/v1/users/change-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "currentPassword": "OldPassword123!",
+  "newPassword": "NewPassword123!"
+}
+
+### Reset User Password (Admin only)
+POST {{EquipTrack.Api_HostAddress}}/api/v1/users/{{userId}}/reset-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "newPassword": "ResetPassword123!"
+}
+
+### Update User Status (Admin only)
+PATCH {{EquipTrack.Api_HostAddress}}/api/v1/users/{{userId}}/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+false
+
+### Get Technicians
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users/technicians
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get User Statistics
+GET {{EquipTrack.Api_HostAddress}}/api/v1/users/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### PREVENTIVE MAINTENANCE ENDPOINTS
+### ============================================
+
+### Get All Preventive Maintenances
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance?page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Preventive Maintenances by Asset
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance?assetId={{assetId}}&page=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Due Preventive Maintenances
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance?isDue=true
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Preventive Maintenance by ID
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/{{preventiveMaintenanceId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Preventive Maintenance
+POST {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Test Preventive Maintenance",
+  "description": "Test preventive maintenance schedule",
+  "frequency": "Months",
+  "frequencyValue": 3,
+  "estimatedHours": 2.0,
+  "estimatedCost": 150.00,
+  "instructions": "1. Check components\n2. Clean equipment\n3. Test functionality",
+  "assetRef": "{{assetId}}",
+  "assignedToUserRef": "{{userId}}",
+  "isActive": true
+}
+
+### Update Preventive Maintenance
+PUT {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/{{preventiveMaintenanceId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Preventive Maintenance",
+  "description": "Updated test preventive maintenance schedule",
+  "frequency": "Months",
+  "frequencyValue": 2,
+  "estimatedHours": 2.5,
+  "estimatedCost": 175.00,
+  "instructions": "1. Check components\n2. Clean equipment\n3. Test functionality\n4. Update documentation",
+  "assignedToUserRef": "{{userId}}",
+  "isActive": true
+}
+
+### Complete Preventive Maintenance
+POST {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/{{preventiveMaintenanceId}}/complete
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+"Preventive maintenance completed successfully. All components checked and cleaned."
+
+### Delete Preventive Maintenance
+DELETE {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/{{preventiveMaintenanceId}}
+Authorization: Bearer {{token}}
+
+### Get Due Preventive Maintenances
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/due
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Upcoming Preventive Maintenances
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/upcoming?days=14
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Preventive Maintenance Statistics
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### DASHBOARD & REPORTING ENDPOINTS
+### ============================================
+
+### Get Dashboard Summary
+GET {{EquipTrack.Api_HostAddress}}/api/v1/assets/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Work Order Summary
+GET {{EquipTrack.Api_HostAddress}}/api/v1/workorders/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Inventory Summary
+GET {{EquipTrack.Api_HostAddress}}/api/v1/spareparts/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get Maintenance Summary
+GET {{EquipTrack.Api_HostAddress}}/api/v1/preventivemaintenance/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### ============================================
+### SAMPLE VARIABLES FOR TESTING
+### ============================================
+# Replace these with actual IDs from your database after creating records
+# @assetId = 00000000-0000-0000-0000-000000000000
+# @workOrderId = 00000000-0000-0000-0000-000000000000
+# @sparePartId = 00000000-0000-0000-0000-000000000000
+# @userId = 00000000-0000-0000-0000-000000000000
+# @preventiveMaintenanceId = 00000000-0000-0000-0000-000000000000
+
+### ============================================
+### HEALTH CHECK
+### ============================================
+
+### Health Check
+GET {{EquipTrack.Api_HostAddress}}/health
+Accept: application/json
+
+###

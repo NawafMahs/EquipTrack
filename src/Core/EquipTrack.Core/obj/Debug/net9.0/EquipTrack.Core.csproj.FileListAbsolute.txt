@@ -1,0 +1,11 @@
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/bin/Debug/net9.0/EquipTrack.Core.deps.json
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/bin/Debug/net9.0/EquipTrack.Core.dll
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/bin/Debug/net9.0/EquipTrack.Core.pdb
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.GeneratedMSBuildEditorConfig.editorconfig
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.AssemblyInfoInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.AssemblyInfo.cs
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.dll
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/refint/EquipTrack.Core.dll
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/EquipTrack.Core.pdb
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/obj/Debug/net9.0/ref/EquipTrack.Core.dll

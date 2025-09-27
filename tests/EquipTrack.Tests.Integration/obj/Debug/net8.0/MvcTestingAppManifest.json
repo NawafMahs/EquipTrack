@@ -1,0 +1,7 @@
+{
+  "EquipTrack.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/media\/windows\/MIN\/Projects\/CMMS\/src\/Core\/EquipTrack.Application",
+  "EquipTrack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/media\/windows\/MIN\/Projects\/CMMS\/src\/Core\/EquipTrack.Core",
+  "EquipTrack.Dashboard.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/media\/windows\/MIN\/Projects\/CMMS\/src\/EquipTrack.Dashboard.API",
+  "EquipTrack.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/media\/windows\/MIN\/Projects\/CMMS\/src\/Core\/EquipTrack.Domain",
+  "EquipTrack.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/media\/windows\/MIN\/Projects\/CMMS\/src\/Infrastructure\/EquipTrack.Infrastructure"
+}
