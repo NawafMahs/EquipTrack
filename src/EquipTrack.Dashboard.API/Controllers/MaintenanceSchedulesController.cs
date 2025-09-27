@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Asp.Versioning;
 using System.Net.Mime;
 using System.ComponentModel.DataAnnotations;
-using EquipTrack.Application.WorkOrders.Commands;
-using EquipTrack.Application.WorkOrders.Queries;
+using EquipTrack.Application.PreventiveMaintenance.Commands;
+using EquipTrack.Application.PreventiveMaintenance.Queries;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Domain.Enums;
@@ -14,7 +14,7 @@ using EquipTrack.Dashboard.API.Extensions;
 namespace EquipTrack.Dashboard.API.Controllers;
 
 /// <summary>
-/// API controller for work order management operations using CQRS pattern.
+/// API controller for maintenance schedule management operations using CQRS pattern.
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
@@ -22,55 +22,49 @@ namespace EquipTrack.Dashboard.API.Controllers;
 [Authorize]
 [Consumes(MediaTypeNames.Application.Json)]
 [Produces(MediaTypeNames.Application.Json)]
-public class WorkOrdersController : ControllerBase
+public class MaintenanceSchedulesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public WorkOrdersController(IMediator mediator)
+    public MaintenanceSchedulesController(IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     /// <summary>
-    /// Get all work orders with filtering and pagination.
+    /// Get all maintenance schedules with filtering and pagination.
     /// </summary>
     /// <param name="pageNumber">Page number (starts from 1).</param>
     /// <param name="pageSize">Page size.</param>
-    /// <param name="searchTerm">Search term to filter work orders.</param>
-    /// <param name="status">Filter by work order status.</param>
-    /// <param name="priority">Filter by work order priority.</param>
-    /// <param name="type">Filter by work order type.</param>
+    /// <param name="searchTerm">Search term to filter maintenance schedules.</param>
+    /// <param name="frequency">Filter by maintenance frequency.</param>
     /// <param name="assetId">Filter by asset ID.</param>
-    /// <param name="assignedToUserId">Filter by assigned user ID.</param>
+    /// <param name="isActive">Filter by active status.</param>
     /// <param name="orderBy">Field to order by.</param>
     /// <param name="orderAscending">Order direction (true for ascending, false for descending).</param>
-    /// <returns>Paginated list of work orders.</returns>
-    [HttpGet("GetWorkOrders")]
-    [ProducesResponseType(typeof(ApiResponse<PaginatedList<WorkOrderQuery>>), 200)]
+    /// <returns>Paginated list of maintenance schedules.</returns>
+    [HttpGet("GetMaintenanceSchedules")]
+    [ProducesResponseType(typeof(ApiResponse<PaginatedList<PreventiveMaintenanceQuery>>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> GetWorkOrders(
+    public async Task<IActionResult> GetMaintenanceSchedules(
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 20,
         [FromQuery] string? searchTerm = null,
-        [FromQuery] WorkOrderStatus? status = null,
-        [FromQuery] WorkOrderPriority? priority = null,
-        [FromQuery] WorkOrderType? type = null,
+        [FromQuery] MaintenanceFrequency? frequency = null,
         [FromQuery] Guid? assetId = null,
-        [FromQuery] Guid? assignedToUserId = null,
-        [FromQuery] string orderBy = "RequestedDate",
-        [FromQuery] bool orderAscending = false)
+        [FromQuery] bool? isActive = null,
+        [FromQuery] string orderBy = "Name",
+        [FromQuery] bool orderAscending = true)
     {
-        var query = new GetWorkOrdersQuery(
+        var query = new GetPreventiveMaintenancesQuery(
             pageNumber,
             pageSize,
             searchTerm,
-            status,
-            priority,
-            type,
+            frequency,
             assetId,
-            assignedToUserId,
+            isActive,
             orderBy,
             orderAscending);
 
@@ -79,164 +73,155 @@ public class WorkOrdersController : ControllerBase
     }
 
     /// <summary>
-    /// Get a specific work order by ID.
+    /// Get a specific maintenance schedule by ID.
     /// </summary>
-    /// <param name="id">The work order ID.</param>
-    /// <returns>The work order with the specified ID.</returns>
+    /// <param name="id">The maintenance schedule ID.</param>
+    /// <returns>The maintenance schedule with the specified ID.</returns>
     [HttpGet("GetById/{id:guid}")]
-    [ProducesResponseType(typeof(ApiResponse<WorkOrderQuery>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<PreventiveMaintenanceQuery>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var query = new GetWorkOrderByIdQuery(id);
+        var query = new GetPreventiveMaintenanceByIdQuery(id);
         var result = await _mediator.Send(query);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Create a new work order.
+    /// Create a new maintenance schedule.
     /// </summary>
-    /// <param name="command">The command containing work order creation data.</param>
-    /// <returns>The created work order ID.</returns>
-    [HttpPost("CreateWorkOrder")]
-    [Authorize(Roles = "Admin,Manager,Technician")]
+    /// <param name="command">The command containing maintenance schedule creation data.</param>
+    /// <returns>The created maintenance schedule ID.</returns>
+    [HttpPost("Create")]
+    [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> CreateWorkOrder([FromBody][Required] CreateWorkOrderCommand command)
+    public async Task<IActionResult> Create([FromBody][Required] CreatePreventiveMaintenanceCommand command)
     {
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Update an existing work order.
+    /// Update an existing maintenance schedule.
     /// </summary>
-    /// <param name="id">The work order ID.</param>
-    /// <param name="command">The command containing updated work order data.</param>
+    /// <param name="id">The maintenance schedule ID.</param>
+    /// <param name="command">The command containing updated maintenance schedule data.</param>
     /// <returns>Success result.</returns>
     [HttpPut("Update/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager,Technician")]
+    [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateWorkOrderCommand command)
+    public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdatePreventiveMaintenanceCommand command)
     {
-        var updateCommand = new UpdateWorkOrderByIdCommand(id, command);
-        var result = await _mediator.Send(updateCommand);
+        // Ensure the ID in the route matches the ID in the command
+        if (id != command.Id)
+        {
+            return BadRequest(new ApiResponse
+            {
+                Success = false,
+                Message = "The maintenance schedule ID in the URL must match the ID in the request body."
+            });
+        }
+
+        var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Delete a work order.
+    /// Delete a maintenance schedule.
     /// </summary>
-    /// <param name="id">The work order ID.</param>
+    /// <param name="id">The maintenance schedule ID.</param>
     /// <returns>Success result.</returns>
     [HttpDelete("Delete/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new DeleteWorkOrderCommand(id);
+        var command = new DeletePreventiveMaintenanceCommand(id);
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Assign work order to a user.
+    /// Activate a maintenance schedule.
     /// </summary>
-    /// <param name="id">Work order ID.</param>
-    /// <param name="request">Assignment request containing user ID.</param>
+    /// <param name="id">The maintenance schedule ID.</param>
     /// <returns>Success result.</returns>
-    [HttpPost("Assign/{id:guid}")]
+    [HttpPost("Activate/{id:guid}")]
     [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Assign(Guid id, [FromBody][Required] AssignWorkOrderRequest request)
+    public async Task<IActionResult> Activate(Guid id)
     {
-        var command = new AssignWorkOrderCommand(id, request.UserId);
+        var command = new ActivatePreventiveMaintenanceCommand(id);
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Start a work order.
+    /// Deactivate a maintenance schedule.
     /// </summary>
-    /// <param name="id">Work order ID.</param>
+    /// <param name="id">The maintenance schedule ID.</param>
     /// <returns>Success result.</returns>
-    [HttpPost("Start/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager,Technician")]
+    [HttpPost("Deactivate/{id:guid}")]
+    [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Start(Guid id)
+    public async Task<IActionResult> Deactivate(Guid id)
     {
-        var command = new StartWorkOrderCommand(id);
+        var command = new DeactivatePreventiveMaintenanceCommand(id);
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Complete a work order.
+    /// Generate work orders from due maintenance schedules.
     /// </summary>
-    /// <param name="id">Work order ID.</param>
-    /// <param name="request">Completion request with details.</param>
-    /// <returns>Success result.</returns>
-    [HttpPost("Complete/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager,Technician")]
-    [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
+    /// <param name="request">Request containing optional date range.</param>
+    /// <returns>Number of work orders generated.</returns>
+    [HttpPost("GenerateWorkOrders")]
+    [Authorize(Roles = "Admin,Manager")]
+    [ProducesResponseType(typeof(ApiResponse<int>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Complete(Guid id, [FromBody][Required] CompleteWorkOrderRequest request)
+    public async Task<IActionResult> GenerateWorkOrders([FromBody] GenerateWorkOrdersRequest? request = null)
     {
-        var command = new CompleteWorkOrderCommand(id, request.CompletionNotes, request.ActualHours, request.ActualCost);
+        var command = new GenerateWorkOrdersFromMaintenanceCommand(
+            request?.StartDate,
+            request?.EndDate);
+        
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 }
 
 /// <summary>
-/// Request model for assigning work order to a user.
+/// Request model for generating work orders from maintenance schedules.
 /// </summary>
-public class AssignWorkOrderRequest
+public class GenerateWorkOrdersRequest
 {
     /// <summary>
-    /// User ID to assign the work order to.
+    /// Start date for generating work orders (optional).
     /// </summary>
-    [Required]
-    public Guid UserId { get; set; }
-}
-
-/// <summary>
-/// Request model for completing a work order.
-/// </summary>
-public class CompleteWorkOrderRequest
-{
-    /// <summary>
-    /// Completion notes.
-    /// </summary>
-    public string? CompletionNotes { get; set; }
+    public DateTime? StartDate { get; set; }
 
     /// <summary>
-    /// Actual hours spent on the work order.
+    /// End date for generating work orders (optional).
     /// </summary>
-    [Required]
-    public decimal ActualHours { get; set; }
-
-    /// <summary>
-    /// Actual cost of the work order.
-    /// </summary>
-    [Required]
-    public decimal ActualCost { get; set; }
+    public DateTime? EndDate { get; set; }
 }

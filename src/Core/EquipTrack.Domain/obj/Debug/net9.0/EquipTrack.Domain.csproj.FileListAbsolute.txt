@@ -8,6 +8,7 @@
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTrack.Domain.AssemblyInfoInputs.cache
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTrack.Domain.AssemblyInfo.cs
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTrack.Domain.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTrack.Domain.sourcelink.json
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTra.E26471F3.Up2Date
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/EquipTrack.Domain.dll
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/obj/Debug/net9.0/refint/EquipTrack.Domain.dll

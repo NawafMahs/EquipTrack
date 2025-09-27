@@ -4,17 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using Asp.Versioning;
 using System.Net.Mime;
 using System.ComponentModel.DataAnnotations;
-using EquipTrack.Application.Assets.Commands;
-using EquipTrack.Application.Assets.Queries;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
-using EquipTrack.Domain.Assets.Enums;
 using EquipTrack.Dashboard.API.Extensions;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 
 /// <summary>
-/// API controller for asset management operations using CQRS pattern.
+/// API controller for branch management operations using CQRS pattern.
+/// This serves as a reference implementation for other CMMS controllers.
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
@@ -22,106 +20,97 @@ namespace EquipTrack.Dashboard.API.Controllers;
 [Authorize]
 [Consumes(MediaTypeNames.Application.Json)]
 [Produces(MediaTypeNames.Application.Json)]
-public class AssetsController : ControllerBase
+public class BranchesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public AssetsController(IMediator mediator)
+    public BranchesController(IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     /// <summary>
-    /// Get all assets with filtering and pagination.
+    /// Get all branches with filtering and pagination.
     /// </summary>
     /// <param name="pageNumber">Page number (starts from 1).</param>
     /// <param name="pageSize">Page size.</param>
-    /// <param name="searchTerm">Search term to filter assets by name, asset tag, or serial number.</param>
-    /// <param name="status">Filter by asset status.</param>
-    /// <param name="criticality">Filter by asset criticality.</param>
-    /// <param name="location">Filter by asset location.</param>
-    /// <param name="manufacturer">Filter by manufacturer.</param>
+    /// <param name="searchTerm">Search term to filter branches.</param>
+    /// <param name="isActive">Filter by active status.</param>
     /// <param name="orderBy">Field to order by.</param>
     /// <param name="orderAscending">Order direction (true for ascending, false for descending).</param>
-    /// <returns>Paginated list of assets.</returns>
-    [HttpGet("GetAssets")]
-    [ProducesResponseType(typeof(ApiResponse<PaginatedList<AssetQuery>>), 200)]
+    /// <returns>Paginated list of branches.</returns>
+    [HttpGet("GetBranches")]
+    [ProducesResponseType(typeof(ApiResponse<PaginatedList<BranchQuery>>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> GetAssets(
+    public async Task<IActionResult> GetBranches(
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 20,
         [FromQuery] string? searchTerm = null,
-        [FromQuery] AssetStatus? status = null,
-        [FromQuery] AssetCriticality? criticality = null,
-        [FromQuery] string? location = null,
-        [FromQuery] string? manufacturer = null,
+        [FromQuery] bool? isActive = null,
         [FromQuery] string orderBy = "Name",
         [FromQuery] bool orderAscending = true)
     {
-        var query = new GetAssetsQuery(
-            pageNumber, 
-            pageSize, 
-            searchTerm, 
-            status, 
-            criticality, 
-            location, 
-            manufacturer, 
-            orderBy, 
+        var query = new GetBranchesQuery(
+            pageNumber,
+            pageSize,
+            searchTerm,
+            isActive,
+            orderBy,
             orderAscending);
-        
+
         var result = await _mediator.Send(query);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Get a specific asset by ID.
+    /// Get a specific branch by ID.
     /// </summary>
-    /// <param name="id">The asset ID.</param>
-    /// <returns>The asset with the specified ID.</returns>
+    /// <param name="id">The branch ID.</param>
+    /// <returns>The branch with the specified ID.</returns>
     [HttpGet("GetById/{id:guid}")]
-    [ProducesResponseType(typeof(ApiResponse<AssetQuery>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<BranchQuery>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var query = new GetAssetByIdQuery(id);
+        var query = new GetBranchByIdQuery(id);
         var result = await _mediator.Send(query);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Create a new asset.
+    /// Create a new branch.
     /// </summary>
-    /// <param name="command">The command containing asset creation data.</param>
-    /// <returns>The created asset ID.</returns>
+    /// <param name="command">The command containing branch creation data.</param>
+    /// <returns>The created branch ID.</returns>
     [HttpPost("Create")]
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Create([FromBody][Required] CreateAssetCommand command)
+    public async Task<IActionResult> Create([FromBody][Required] CreateBranchCommand command)
     {
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Update an existing asset.
+    /// Update an existing branch.
     /// </summary>
-    /// <param name="id">The asset ID.</param>
-    /// <param name="command">The command containing updated asset data.</param>
+    /// <param name="id">The branch ID.</param>
+    /// <param name="command">The command containing updated branch data.</param>
     /// <returns>Success result.</returns>
     [HttpPut("Update/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
     [ProducesResponseType(typeof(ApiResponse), 400)]
     [ProducesResponseType(typeof(ApiResponse), 404)]
     [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateAssetCommand command)
+    public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateBranchCommand command)
     {
         // Ensure the ID in the route matches the ID in the command
         if (id != command.Id)
@@ -129,7 +118,7 @@ public class AssetsController : ControllerBase
             return BadRequest(new ApiResponse
             {
                 Success = false,
-                Message = "The asset ID in the URL must match the ID in the request body."
+                Message = "The branch ID in the URL must match the ID in the request body."
             });
         }
 
@@ -138,9 +127,9 @@ public class AssetsController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an asset.
+    /// Delete a branch.
     /// </summary>
-    /// <param name="id">The asset ID.</param>
+    /// <param name="id">The branch ID.</param>
     /// <returns>Success result.</returns>
     [HttpDelete("Delete/{id:guid}")]
     [Authorize(Roles = "Admin")]
@@ -150,8 +139,28 @@ public class AssetsController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new DeleteAssetCommand(id);
+        var command = new DeleteBranchCommand(id);
         var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
+}
+
+/// <summary>
+/// Query model for branch data.
+/// </summary>
+public class BranchQuery
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
+    public string Address { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public string Country { get; set; } = string.Empty;
+    public string PostalCode { get; set; } = string.Empty;
+    public string? Phone { get; set; }
+    public string? Email { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

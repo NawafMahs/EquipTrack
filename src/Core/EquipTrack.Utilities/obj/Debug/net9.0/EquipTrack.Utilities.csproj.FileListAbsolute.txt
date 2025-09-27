@@ -5,6 +5,7 @@
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.AssemblyInfoInputs.cache
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.AssemblyInfo.cs
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.sourcelink.json
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.dll
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/refint/EquipTrack.Utilities.dll
 /media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/Debug/net9.0/EquipTrack.Utilities.pdb

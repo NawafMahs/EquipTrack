@@ -143,6 +143,7 @@
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTrack.RabbitMQ.Tests.AssemblyInfoInputs.cache
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTrack.RabbitMQ.Tests.AssemblyInfo.cs
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTrack.RabbitMQ.Tests.csproj.CoreCompileInputs.cache
+/media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTrack.RabbitMQ.Tests.sourcelink.json
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTra.9385F554.Up2Date
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/EquipTrack.RabbitMQ.Tests.dll
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.RabbitMQ.Tests/obj/Debug/net9.0/refint/EquipTrack.RabbitMQ.Tests.dll
