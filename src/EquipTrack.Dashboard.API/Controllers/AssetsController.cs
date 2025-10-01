@@ -10,6 +10,7 @@ using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Domain.Assets.Enums;
 using EquipTrack.Dashboard.API.Extensions;
+using EquipTrack.Dashboard.API.Models;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 
@@ -123,15 +124,6 @@ public class AssetsController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateAssetCommand command)
     {
-        // Ensure the ID in the route matches the ID in the command
-        if (id != command.Id)
-        {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                Message = "The asset ID in the URL must match the ID in the request body."
-            });
-        }
 
         var result = await _mediator.Send(command);
         return result.ToActionResult();

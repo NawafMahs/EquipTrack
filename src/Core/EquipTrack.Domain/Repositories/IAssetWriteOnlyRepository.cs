@@ -1,5 +1,5 @@
 using EquipTrack.Domain.Common;
-using EquipTrack.Domain.Assets.Entities;
+using EquipTrack.Domain.Entities;
 
 namespace EquipTrack.Domain.Repositories;
 

@@ -277,23 +277,23 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -301,7 +301,7 @@
             },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
@@ -309,15 +309,15 @@
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Diagnostics.HealthChecks": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",

@@ -3,9 +3,9 @@ using MediatR;
 using EquipTrack.Application.Assets.Commands;
 using EquipTrack.Application.Extensions;
 using EquipTrack.Core.SharedKernel;
-using EquipTrack.Domain.Assets.Entities;
 using EquipTrack.Domain.Repositories;
 using EquipTrack.Domain.Common;
+using EquipTrack.Domain.Entities;
 
 namespace EquipTrack.Application.Assets.Handlers;
 
@@ -58,37 +58,36 @@ internal class CreateAssetCommandHandler : IRequestHandler<CreateAssetCommand, R
             var asset = Asset.Create(
                 request.Name,
                 request.Description,
-                request.AssetTag,
-                request.SerialNumber,
+                request.SerialNumber, request.Model,
                 request.Manufacturer,
-                request.Model,
                 request.Location,
-                request.Criticality);
+                request.PurchaseDate,
+                request.PurchaseCost);
 
             // Set optional purchase information if provided
-            if (request.PurchaseDate.HasValue || request.PurchaseCost.HasValue)
+            if (request.PurchaseDate != default || request.PurchaseCost != 0)
             {
                 asset.SetPurchaseInfo(request.PurchaseDate, request.PurchaseCost);
             }
 
             // Set installation date if provided
-            if (request.InstallationDate.HasValue)
-            {
-                asset.SetInstallationDate(request.InstallationDate);
-            }
+            // if (request.InstallationDate.HasValue)
+            // {
+            //     asset.SetInstallationDate(request.InstallationDate);
+            // }
 
-            // Set warranty expiration date if provided
-            if (request.WarrantyExpirationDate.HasValue)
-            {
-                asset.SetWarrantyExpirationDate(request.WarrantyExpirationDate);
-            }
+            // // Set warranty expiration date if provided
+            // if (request.WarrantyExpirationDate.HasValue)
+            // {
+            //     asset.SetWarrantyExpirationDate(request.WarrantyExpirationDate);
+            // }
 
             // Add to repository
             _writeRepository.Add(asset);
-            
+
             // Save changes
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            
+
             // Return the new asset's ID
             return Result<Guid>.Success(asset.Id);
         }

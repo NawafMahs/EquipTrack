@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "I7MKxqMwoUI=",
+  "dgSpecHash": "V65JiLUnpgo=",
   "success": true,
   "projectFilePath": "/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/EquipTrack.Query.csproj",
   "expectedPackageFiles": [
+    "/home/swb/.nuget/packages/fluentvalidation/12.0.0/fluentvalidation.12.0.0.nupkg.sha512",
+    "/home/swb/.nuget/packages/mediatr/13.0.0/mediatr.13.0.0.nupkg.sha512",
+    "/home/swb/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.entityframeworkcore/9.0.0/microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.0/microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.0/microsoft.entityframeworkcore.analyzers.9.0.0.nupkg.sha512",
@@ -16,6 +19,10 @@
     "/home/swb/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.0/microsoft.extensions.logging.abstractions.9.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.extensions.options/9.0.0/microsoft.extensions.options.9.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.extensions.primitives/9.0.0/microsoft.extensions.primitives.9.0.0.nupkg.sha512",
+    "/home/swb/.nuget/packages/microsoft.identitymodel.abstractions/8.0.1/microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
+    "/home/swb/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.0.1/microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
+    "/home/swb/.nuget/packages/microsoft.identitymodel.logging/8.0.1/microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
+    "/home/swb/.nuget/packages/microsoft.identitymodel.tokens/8.0.1/microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
     "/home/swb/.nuget/packages/scrutor/5.0.1/scrutor.5.0.1.nupkg.sha512",
     "/home/swb/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/system.text.json/9.0.0/system.text.json.9.0.0.nupkg.sha512"

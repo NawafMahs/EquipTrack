@@ -10,6 +10,7 @@ using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Domain.Enums;
 using EquipTrack.Dashboard.API.Extensions;
+using EquipTrack.Dashboard.API.Models;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 

@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Dashboard.API.Extensions;
+using EquipTrack.Dashboard.API.Models;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 

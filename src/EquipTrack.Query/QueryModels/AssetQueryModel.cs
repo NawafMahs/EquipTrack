@@ -1,9 +1,11 @@
 using EquipTrack.Domain.Enums;
+using EquipTrack.Query.Abstractions;
 
 namespace EquipTrack.Query.QueryModels;
 
-public class AssetQueryModel
+public class AssetQueryModel : IQueryModel<Guid>
 {
+    public Guid Id { get; set; }
     public AssetStatus? Status { get; set; }
     public string? Location { get; set; }
     public string? Manufacturer { get; set; }

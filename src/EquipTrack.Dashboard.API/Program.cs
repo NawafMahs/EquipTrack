@@ -9,7 +9,7 @@ using EquipTrack.Application;
 using EquipTrack.Application.Mappings;
 using EquipTrack.Infrastructure;
 using EquipTrack.Infrastructure.Data;
-
+using EquipTrack.Application.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Serilog
@@ -30,6 +30,9 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
+
+
+builder.Services.AddApplicationLayer();
 
 // Add Application services (CQRS + MediatR)
 builder.Services.AddApplicationServices();

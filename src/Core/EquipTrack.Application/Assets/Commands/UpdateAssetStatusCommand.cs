@@ -1,6 +1,6 @@
 using MediatR;
 using EquipTrack.Core.SharedKernel;
-using EquipTrack.Domain.Assets.Enums;
+using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Application.Assets.Commands;
 

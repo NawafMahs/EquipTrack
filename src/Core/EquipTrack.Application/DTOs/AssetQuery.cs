@@ -1,6 +1,7 @@
-using EquipTrack.Domain.Assets.Enums;
 
 using EquipTrack.Application.DTOs;
+using EquipTrack.Domain.Enums;
+using EquipTrack.Domain.Repositories;
 namespace EquipTrack.Application.DTOs;
 
 /// <summary>

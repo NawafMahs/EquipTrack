@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Dashboard.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EquipTrack.Dashboard.API.Extensions;
 

@@ -1,7 +1,7 @@
 using EquipTrack.Domain.Common;
-using EquipTrack.Domain.Assets.Entities;
-using EquipTrack.Domain.Assets.Enums;
 using EquipTrack.Core.SharedKernel;
+using EquipTrack.Domain.Entities;
+using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Domain.Repositories;
 
@@ -99,4 +99,8 @@ public interface IAssetReadOnlyRepository : IReadOnlyRepository<Asset, Guid>
     /// <param name="days">Number of days to check for warranty expiration.</param>
     /// <returns>List of assets with warranty expiring soon.</returns>
     Task<List<Asset>> GetAssetsWithWarrantyExpiringAsync(int days);
+}
+
+public class AssetCriticality
+{
 }

@@ -1,8 +1,0 @@
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.csproj.AssemblyReference.cache
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.GeneratedMSBuildEditorConfig.editorconfig
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.AssemblyInfoInputs.cache
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.AssemblyInfo.cs
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.csproj.CoreCompileInputs.cache
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.MvcApplicationPartsAssemblyInfo.cs
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.MvcApplicationPartsAssemblyInfo.cache
-/media/windows/MIN/Projects/CMMS/src/EquipTrack.Dashboard.API/obj/Debug/net9.0/EquipTrack.Dashboard.API.sourcelink.json

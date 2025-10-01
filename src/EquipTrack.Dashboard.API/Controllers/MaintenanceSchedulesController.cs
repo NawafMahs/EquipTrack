@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Asp.Versioning;
 using System.Net.Mime;
 using System.ComponentModel.DataAnnotations;
-using EquipTrack.Application.PreventiveMaintenance.Commands;
-using EquipTrack.Application.PreventiveMaintenance.Queries;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Domain.Enums;
 using EquipTrack.Dashboard.API.Extensions;
+using EquipTrack.Dashboard.API.Models;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 
@@ -120,15 +119,7 @@ public class MaintenanceSchedulesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdatePreventiveMaintenanceCommand command)
     {
-        // Ensure the ID in the route matches the ID in the command
-        if (id != command.Id)
-        {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                Message = "The maintenance schedule ID in the URL must match the ID in the request body."
-            });
-        }
+       
 
         var result = await _mediator.Send(command);
         return result.ToActionResult();

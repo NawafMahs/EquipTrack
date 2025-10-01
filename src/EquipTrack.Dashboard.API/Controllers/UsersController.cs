@@ -27,7 +27,7 @@ public class UsersController : BaseApiController
     /// <returns>List of users</returns>
     [HttpGet]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<IEnumerable<UserQuery>>> GetUsers()
+    public async Task<IActionResult> GetUsers()
     {
         var result = await _userService.GetAllUsersAsync();
         return result.ToActionResult();
@@ -40,7 +40,7 @@ public class UsersController : BaseApiController
     /// <returns>User details</returns>
     [HttpGet("{id}")]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<UserQuery>> GetUser(Guid id)
+    public async Task<IActionResult> GetUser(Guid id)
     {
         var result = await _userService.GetUserByIdAsync(id);
         return result.ToActionResult();
@@ -53,7 +53,7 @@ public class UsersController : BaseApiController
     /// <returns>User details</returns>
     [HttpGet("email/{email}")]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<UserQuery>> GetUserByEmail(string email)
+    public async Task<IActionResult> GetUserByEmail(string email)
     {
         var result = await _userService.GetUserByEmailAsync(email);
         return result.ToActionResult();
@@ -64,7 +64,7 @@ public class UsersController : BaseApiController
     /// </summary>
     /// <returns>Current user details</returns>
     [HttpGet("profile")]
-    public async Task<ActionResult<UserQuery>> GetCurrentUserProfile()
+    public async Task<IActionResult> GetCurrentUserProfile()
     {
         var currentUserId = GetCurrentUserId();
         var result = await _userService.GetUserByIdAsync(currentUserId);
@@ -78,7 +78,7 @@ public class UsersController : BaseApiController
     /// <returns>Created user</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<UserQuery>> CreateUser([FromBody] CreateUserCommand createUserDto)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand createUserDto)
     {
         var result = await _userService.CreateUserAsync(createUserDto);
         
@@ -97,7 +97,7 @@ public class UsersController : BaseApiController
     /// <returns>Updated user</returns>
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<UserQuery>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserDto)
+    public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserDto)
     {
         var result = await _userService.UpdateUserAsync(id, updateUserDto);
         return result.ToActionResult();
@@ -110,7 +110,7 @@ public class UsersController : BaseApiController
     /// <returns>Success message</returns>
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> DeleteUser(Guid id)
+    public async Task<IActionResult> DeleteUser(Guid id)
     {
         var result = await _userService.DeleteUserAsync(id);
         return result.ToActionResult();
@@ -123,7 +123,7 @@ public class UsersController : BaseApiController
     /// <returns>Success message</returns>
     [HttpPost("{id}/activate")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> ActivateUser(Guid id)
+    public async Task<IActionResult> ActivateUser(Guid id)
     {
         var result = await _userService.ActivateUserAsync(id);
         return result.ToActionResult();
@@ -136,7 +136,7 @@ public class UsersController : BaseApiController
     /// <returns>Success message</returns>
     [HttpPost("{id}/deactivate")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> DeactivateUser(Guid id)
+    public async Task<IActionResult> DeactivateUser(Guid id)
     {
         var result = await _userService.DeactivateUserAsync(id);
         return result.ToActionResult();
@@ -148,7 +148,7 @@ public class UsersController : BaseApiController
     /// <param name="changePasswordRequest">Password change data</param>
     /// <returns>Success message</returns>
     [HttpPost("change-password")]
-    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
     {
         var currentUserId = GetCurrentUserId();
         var result = await _userService.ChangePasswordAsync(
@@ -166,7 +166,7 @@ public class UsersController : BaseApiController
     /// <returns>Success message</returns>
     [HttpPost("{id}/reset-password")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> ResetPassword(Guid id, [FromBody] ResetPasswordRequest resetPasswordRequest)
+    public async Task<IActionResult> ResetPassword(Guid id, [FromBody] ResetPasswordRequest resetPasswordRequest)
     {
         // For admin reset, we'll use a dummy current password since admin can reset without knowing current password
         var result = await _userService.ChangePasswordAsync(id, "dummy", resetPasswordRequest.NewPassword);
@@ -174,11 +174,6 @@ public class UsersController : BaseApiController
     }
 }
 
-public class ChangePasswordRequest
-{
-    public string CurrentPassword { get; set; } = string.Empty;
-    public string NewPassword { get; set; } = string.Empty;
-}
 
 public class ResetPasswordRequest
 {
