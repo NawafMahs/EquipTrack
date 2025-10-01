@@ -67,7 +67,7 @@ internal class UpdateAssetCommandHandler : IRequestHandler<UpdateAssetCommand, R
             asset.SetSerialNumber(request.SerialNumber);
             asset.SetManufacturer(request.Manufacturer);
             asset.SetModel(request.Model);
-            asset.SetLocation(request.Location);
+            asset.UpdateLocation(request.Location);
             asset.SetCriticality(request.Criticality);
 
             // Update optional purchase information

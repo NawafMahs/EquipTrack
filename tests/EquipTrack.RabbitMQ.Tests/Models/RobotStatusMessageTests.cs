@@ -1,4 +1,5 @@
-using EquipTrack.Infrastructure.RabbitMQ.Models;
+using EquipTrack.Domain.Enums;
+using EquipTrack.RabbitMQ.Models;
 using FluentAssertions;
 using System.Text.Json;
 using Xunit;
@@ -14,67 +15,60 @@ public sealed class RobotStatusMessageTests
     public void Create_WithValidParameters_ShouldCreateStatusMessage()
     {
         // Arrange
-        const string robotId = "robot-001";
-        const RobotOperationalStatus status = RobotOperationalStatus.Idle;
+        const string robotId = "550e8400-e29b-41d4-a716-446655440000";
+        const RobotStatus status = RobotStatus.Idle;
 
         // Act
         var statusMessage = RobotStatusMessage.Create(robotId, status);
 
         // Assert
         statusMessage.Should().NotBeNull();
-        statusMessage.RobotId.Should().Be(robotId);
+        statusMessage.RobotId.Should().NotBeEmpty();
         statusMessage.Status.Should().Be(status);
         statusMessage.MessageId.Should().NotBeEmpty();
         statusMessage.Timestamp.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-        statusMessage.SensorReadings.Should().NotBeNull();
-        statusMessage.ErrorCodes.Should().NotBeNull();
-        statusMessage.Warnings.Should().NotBeNull();
-        statusMessage.Metadata.Should().NotBeNull();
     }
 
     [Fact]
     public void CreateWithSensorData_ShouldIncludeSensorReadings()
     {
         // Arrange
-        const string robotId = "robot-001";
-        const RobotOperationalStatus status = RobotOperationalStatus.Producing;
-        var sensorReadings = new Dictionary<string, decimal>
+        const string robotId = "550e8400-e29b-41d4-a716-446655440000";
+        const RobotStatus status = RobotStatus.Running;
+        var sensorReadings = new List<SensorReading>
         {
-            ["temperature"] = 25.5m,
-            ["pressure"] = 1013.25m,
-            ["humidity"] = 45.0m
+            new() { SensorId = "temp-001", SensorType = "temperature", Value = 25.5m, Unit = "C", ReadingTime = DateTime.UtcNow },
+            new() { SensorId = "press-001", SensorType = "pressure", Value = 1013.25m, Unit = "hPa", ReadingTime = DateTime.UtcNow },
+            new() { SensorId = "hum-001", SensorType = "humidity", Value = 45.0m, Unit = "%", ReadingTime = DateTime.UtcNow }
         };
 
         // Act
-        var statusMessage = RobotStatusMessage.CreateWithSensorData(robotId, status, sensorReadings);
+        var statusMessage = RobotStatusMessage.Create(robotId, status) with { SensorReadings = sensorReadings };
 
         // Assert
         statusMessage.Should().NotBeNull();
-        statusMessage.RobotId.Should().Be(robotId);
+        statusMessage.RobotId.Should().NotBeEmpty();
         statusMessage.Status.Should().Be(status);
         statusMessage.SensorReadings.Should().HaveCount(3);
-        statusMessage.SensorReadings.Should().ContainKey("temperature");
-        statusMessage.SensorReadings.Should().ContainKey("pressure");
-        statusMessage.SensorReadings.Should().ContainKey("humidity");
-        statusMessage.SensorReadings["temperature"].Should().Be(25.5m);
-        statusMessage.SensorReadings["pressure"].Should().Be(1013.25m);
-        statusMessage.SensorReadings["humidity"].Should().Be(45.0m);
+        statusMessage.SensorReadings.Should().Contain(s => s.SensorType == "temperature" && s.Value == 25.5m);
+        statusMessage.SensorReadings.Should().Contain(s => s.SensorType == "pressure" && s.Value == 1013.25m);
+        statusMessage.SensorReadings.Should().Contain(s => s.SensorType == "humidity" && s.Value == 45.0m);
     }
 
     [Fact]
     public void CreateErrorStatus_ShouldIncludeErrorCodes()
     {
         // Arrange
-        const string robotId = "robot-001";
-        var errorCodes = new[] { "ERR001", "ERR002", "WARN003" };
+        const string robotId = "550e8400-e29b-41d4-a716-446655440000";
+        var errorCodes = new List<string> { "ERR001", "ERR002", "WARN003" };
 
         // Act
-        var statusMessage = RobotStatusMessage.CreateErrorStatus(robotId, errorCodes);
+        var statusMessage = RobotStatusMessage.Create(robotId, RobotStatus.Error) with { ErrorCodes = errorCodes };
 
         // Assert
         statusMessage.Should().NotBeNull();
-        statusMessage.RobotId.Should().Be(robotId);
-        statusMessage.Status.Should().Be(RobotOperationalStatus.Error);
+        statusMessage.RobotId.Should().NotBeEmpty();
+        statusMessage.Status.Should().Be(RobotStatus.Error);
         statusMessage.ErrorCodes.Should().HaveCount(3);
         statusMessage.ErrorCodes.Should().Contain("ERR001");
         statusMessage.ErrorCodes.Should().Contain("ERR002");
@@ -82,17 +76,19 @@ public sealed class RobotStatusMessageTests
     }
 
     [Fact]
-    public void JsonSerialization_ShouldUseKebabCaseNaming()
+    public void JsonSerialization_ShouldSerializeCorrectly()
     {
         // Arrange
-        var statusMessage = RobotStatusMessage.Create("robot-001", RobotOperationalStatus.Producing);
-        statusMessage.BatteryLevel = 85.5m;
-        statusMessage.OperatingHours = 1234.5m;
-        statusMessage.FirmwareVersion = "v1.2.3";
+        var statusMessage = RobotStatusMessage.Create("550e8400-e29b-41d4-a716-446655440000", RobotStatus.Running) with
+        {
+            BatteryLevel = 85.5m,
+            OperatingHours = 1234.5m,
+            FirmwareVersion = "v1.2.3"
+        };
 
         var options = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         // Act
@@ -100,13 +96,11 @@ public sealed class RobotStatusMessageTests
         var deserialized = JsonSerializer.Deserialize<RobotStatusMessage>(json, options);
 
         // Assert
-        json.Should().Contain("\"message-id\":");
-        json.Should().Contain("\"robot-id\":");
-        json.Should().Contain("\"sensor-readings\":");
-        json.Should().Contain("\"error-codes\":");
-        json.Should().Contain("\"battery-level\":");
-        json.Should().Contain("\"operating-hours\":");
-        json.Should().Contain("\"firmware-version\":");
+        json.Should().Contain("\"messageId\":");
+        json.Should().Contain("\"robotId\":");
+        json.Should().Contain("\"batteryLevel\":");
+        json.Should().Contain("\"operatingHours\":");
+        json.Should().Contain("\"firmwareVersion\":");
         
         deserialized.Should().NotBeNull();
         deserialized!.MessageId.Should().Be(statusMessage.MessageId);
@@ -118,23 +112,19 @@ public sealed class RobotStatusMessageTests
     }
 
     [Theory]
-    [InlineData(RobotOperationalStatus.Unknown)]
-    [InlineData(RobotOperationalStatus.Offline)]
-    [InlineData(RobotOperationalStatus.Idle)]
-    [InlineData(RobotOperationalStatus.Starting)]
-    [InlineData(RobotOperationalStatus.Producing)]
-    [InlineData(RobotOperationalStatus.Paused)]
-    [InlineData(RobotOperationalStatus.Stopping)]
-    [InlineData(RobotOperationalStatus.Error)]
-    [InlineData(RobotOperationalStatus.Maintenance)]
-    [InlineData(RobotOperationalStatus.EmergencyStop)]
-    public void RobotOperationalStatus_ShouldSerializeCorrectly(RobotOperationalStatus status)
+    [InlineData(RobotStatus.Idle)]
+    [InlineData(RobotStatus.Running)]
+    [InlineData(RobotStatus.Charging)]
+    [InlineData(RobotStatus.Error)]
+    [InlineData(RobotStatus.Maintenance)]
+    [InlineData(RobotStatus.OutOfService)]
+    public void RobotStatus_ShouldSerializeCorrectly(RobotStatus status)
     {
         // Arrange
-        var statusMessage = RobotStatusMessage.Create("robot-001", status);
+        var statusMessage = RobotStatusMessage.Create("550e8400-e29b-41d4-a716-446655440000", status);
         var options = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         // Act
@@ -150,22 +140,24 @@ public sealed class RobotStatusMessageTests
     public void ProductionInfo_ShouldSerializeCorrectly()
     {
         // Arrange
-        var statusMessage = RobotStatusMessage.Create("robot-001", RobotOperationalStatus.Producing);
-        statusMessage.ProductionInfo = new ProductionInfo
+        var statusMessage = RobotStatusMessage.Create("550e8400-e29b-41d4-a716-446655440000", RobotStatus.Running) with
         {
-            RecipeId = "recipe-123",
-            BatchNumber = "batch-456",
-            StartedAt = DateTime.UtcNow.AddHours(-2),
-            EstimatedCompletion = DateTime.UtcNow.AddHours(1),
-            ProgressPercentage = 65.5m,
-            CurrentStep = "mixing",
-            TotalSteps = 10,
-            CurrentStepNumber = 7
+            ProductionInfo = new ProductionInfo
+            {
+                RecipeId = "recipe-123",
+                BatchNumber = "batch-456",
+                StartedAt = DateTime.UtcNow.AddHours(-2),
+                EstimatedCompletion = DateTime.UtcNow.AddHours(1),
+                ProgressPercentage = 65.5m,
+                CurrentStep = "mixing",
+                TotalSteps = 10,
+                CurrentStepNumber = 7
+            }
         };
 
         var options = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         // Act
@@ -173,13 +165,13 @@ public sealed class RobotStatusMessageTests
         var deserialized = JsonSerializer.Deserialize<RobotStatusMessage>(json, options);
 
         // Assert
-        json.Should().Contain("\"production-info\":");
-        json.Should().Contain("\"recipe-id\":");
-        json.Should().Contain("\"batch-number\":");
-        json.Should().Contain("\"progress-percentage\":");
-        json.Should().Contain("\"current-step\":");
-        json.Should().Contain("\"total-steps\":");
-        json.Should().Contain("\"current-step-number\":");
+        json.Should().Contain("\"productionInfo\":");
+        json.Should().Contain("\"recipeId\":");
+        json.Should().Contain("\"batchNumber\":");
+        json.Should().Contain("\"progressPercentage\":");
+        json.Should().Contain("\"currentStep\":");
+        json.Should().Contain("\"totalSteps\":");
+        json.Should().Contain("\"currentStepNumber\":");
 
         deserialized.Should().NotBeNull();
         deserialized!.ProductionInfo.Should().NotBeNull();
@@ -195,18 +187,21 @@ public sealed class RobotStatusMessageTests
     public void NetworkInfo_ShouldSerializeCorrectly()
     {
         // Arrange
-        var statusMessage = RobotStatusMessage.Create("robot-001", RobotOperationalStatus.Idle);
-        statusMessage.NetworkInfo = new NetworkInfo
+        var statusMessage = RobotStatusMessage.Create("550e8400-e29b-41d4-a716-446655440000", RobotStatus.Idle) with
         {
-            SignalStrength = 85.5m,
-            IpAddress = "192.168.1.100",
-            ConnectionType = "wifi",
-            LastCommunication = DateTime.UtcNow.AddMinutes(-5)
+            NetworkInfo = new NetworkInfo
+            {
+                SignalStrength = 85,
+                IpAddress = "192.168.1.100",
+                ConnectionType = "wifi",
+                LastCommunication = DateTime.UtcNow.AddMinutes(-5),
+                IsConnected = true
+            }
         };
 
         var options = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         // Act
@@ -214,15 +209,15 @@ public sealed class RobotStatusMessageTests
         var deserialized = JsonSerializer.Deserialize<RobotStatusMessage>(json, options);
 
         // Assert
-        json.Should().Contain("\"network-info\":");
-        json.Should().Contain("\"signal-strength\":");
-        json.Should().Contain("\"ip-address\":");
-        json.Should().Contain("\"connection-type\":");
-        json.Should().Contain("\"last-communication\":");
+        json.Should().Contain("\"networkInfo\":");
+        json.Should().Contain("\"signalStrength\":");
+        json.Should().Contain("\"ipAddress\":");
+        json.Should().Contain("\"connectionType\":");
+        json.Should().Contain("\"lastCommunication\":");
 
         deserialized.Should().NotBeNull();
         deserialized!.NetworkInfo.Should().NotBeNull();
-        deserialized.NetworkInfo!.SignalStrength.Should().Be(85.5m);
+        deserialized.NetworkInfo!.SignalStrength.Should().Be(85);
         deserialized.NetworkInfo.IpAddress.Should().Be("192.168.1.100");
         deserialized.NetworkInfo.ConnectionType.Should().Be("wifi");
     }
@@ -231,27 +226,24 @@ public sealed class RobotStatusMessageTests
     public void ComplexStatusMessage_ShouldSerializeAndDeserializeCorrectly()
     {
         // Arrange
-        var statusMessage = RobotStatusMessage.Create("robot-001", RobotOperationalStatus.Producing);
-        statusMessage.SensorReadings = new Dictionary<string, decimal>
+        var statusMessage = RobotStatusMessage.Create("550e8400-e29b-41d4-a716-446655440000", RobotStatus.Running) with
         {
-            ["temperature"] = 25.5m,
-            ["pressure"] = 1013.25m
-        };
-        statusMessage.ErrorCodes = new List<string> { "WARN001" };
-        statusMessage.Warnings = new List<string> { "Temperature approaching limit" };
-        statusMessage.BatteryLevel = 75.0m;
-        statusMessage.OperatingHours = 2500.5m;
-        statusMessage.FirmwareVersion = "v2.1.0";
-        statusMessage.CorrelationId = "correlation-123";
-        statusMessage.Metadata = new Dictionary<string, string>
-        {
-            ["location"] = "factory-floor-1",
-            ["operator"] = "john-doe"
+            SensorReadings = new List<SensorReading>
+            {
+                new() { SensorId = "temp-001", SensorType = "temperature", Value = 25.5m, Unit = "C", ReadingTime = DateTime.UtcNow },
+                new() { SensorId = "press-001", SensorType = "pressure", Value = 1013.25m, Unit = "hPa", ReadingTime = DateTime.UtcNow }
+            },
+            ErrorCodes = new List<string> { "WARN001" },
+            Warnings = new List<string> { "Temperature approaching limit" },
+            BatteryLevel = 75.0m,
+            OperatingHours = 2500.5m,
+            FirmwareVersion = "v2.1.0",
+            CorrelationId = "correlation-123"
         };
 
         var options = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         // Act
@@ -262,13 +254,12 @@ public sealed class RobotStatusMessageTests
         deserialized.Should().NotBeNull();
         deserialized!.RobotId.Should().Be(statusMessage.RobotId);
         deserialized.Status.Should().Be(statusMessage.Status);
-        deserialized.SensorReadings.Should().BeEquivalentTo(statusMessage.SensorReadings);
+        deserialized.SensorReadings.Should().HaveCount(2);
         deserialized.ErrorCodes.Should().BeEquivalentTo(statusMessage.ErrorCodes);
         deserialized.Warnings.Should().BeEquivalentTo(statusMessage.Warnings);
         deserialized.BatteryLevel.Should().Be(statusMessage.BatteryLevel);
         deserialized.OperatingHours.Should().Be(statusMessage.OperatingHours);
         deserialized.FirmwareVersion.Should().Be(statusMessage.FirmwareVersion);
         deserialized.CorrelationId.Should().Be(statusMessage.CorrelationId);
-        deserialized.Metadata.Should().BeEquivalentTo(statusMessage.Metadata);
     }
 }

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "V65JiLUnpgo=",
+  "dgSpecHash": "NvsYErOJijY=",
   "success": true,
   "projectFilePath": "/media/windows/MIN/Projects/CMMS/src/EquipTrack.Query/EquipTrack.Query.csproj",
   "expectedPackageFiles": [
+    "/home/swb/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/swb/.nuget/packages/fluentvalidation/12.0.0/fluentvalidation.12.0.0.nupkg.sha512",
+    "/home/swb/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.11.0/fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
     "/home/swb/.nuget/packages/mediatr/13.0.0/mediatr.13.0.0.nupkg.sha512",
     "/home/swb/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/swb/.nuget/packages/microsoft.entityframeworkcore/9.0.0/microsoft.entityframeworkcore.9.0.0.nupkg.sha512",

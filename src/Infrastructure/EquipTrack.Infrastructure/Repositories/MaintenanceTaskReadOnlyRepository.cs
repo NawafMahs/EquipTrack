@@ -21,7 +21,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
         _dbSet = _context.Set<MaintenanceTask>();
     }
 
-    public IQueryable<MaintenanceTask> GetQueryable()
+    public IQueryable<MaintenanceTask> GetAllQueryable()
     {
         return _dbSet
             .Include(mt => mt.Asset)
@@ -32,18 +32,47 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
             .AsNoTracking();
     }
 
-    public async Task<MaintenanceTask?> GetByIdAsync(
-        Guid id, 
-        CancellationToken cancellationToken = default)
+    public async Task<int> CountAsync(System.Linq.Expressions.Expression<Func<MaintenanceTask, bool>> predicate, CancellationToken cancellationToken = default)
     {
-        return await GetQueryable()
-            .FirstOrDefaultAsync(mt => mt.Id == id, cancellationToken);
+        return await _dbSet.CountAsync(predicate, cancellationToken);
     }
 
-    public async Task<IEnumerable<MaintenanceTask>> GetAllAsync(
-        CancellationToken cancellationToken = default)
+    public async Task<List<MaintenanceTask>> GetAllAsync()
     {
-        return await GetQueryable().ToListAsync(cancellationToken);
+        return await GetAllQueryable().ToListAsync();
+    }
+
+    public IQueryable<TProjection> GetAll<TProjection>(System.Linq.Expressions.Expression<Func<MaintenanceTask, TProjection>> selector)
+    {
+        return _dbSet.Select(selector);
+    }
+
+    public async Task<TProjection?> GetAsync<TProjection>(
+        System.Linq.Expressions.Expression<Func<MaintenanceTask, bool>> predicate,
+        System.Linq.Expressions.Expression<Func<MaintenanceTask, TProjection>> selector)
+    {
+        return await _dbSet.Where(predicate).Select(selector).FirstOrDefaultAsync();
+    }
+
+    public async Task<MaintenanceTask?> GetByIdAsync(Guid id)
+    {
+        return await GetAllQueryable()
+            .FirstOrDefaultAsync(mt => mt.Id == id);
+    }
+
+    public async Task<MaintenanceTask?> GetAsync(System.Linq.Expressions.Expression<Func<MaintenanceTask, bool>> predicate)
+    {
+        return await GetAllQueryable().FirstOrDefaultAsync(predicate);
+    }
+
+    public async Task<bool> AnyAsync(System.Linq.Expressions.Expression<Func<MaintenanceTask, bool>> predicate)
+    {
+        return await _dbSet.AnyAsync(predicate);
+    }
+
+    public async Task<bool> AnyAsync(Guid id)
+    {
+        return await _dbSet.AnyAsync(mt => mt.Id == id);
     }
 
     public async Task<bool> ExistsAsync(
@@ -57,7 +86,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
         Guid assetRef,
         CancellationToken cancellationToken = default)
     {
-        return await GetQueryable()
+        return await GetAllQueryable()
             .Where(mt => mt.AssetRef == assetRef)
             .OrderByDescending(mt => mt.ScheduledDate)
             .ToListAsync(cancellationToken);
@@ -67,7 +96,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
         Guid technicianRef,
         CancellationToken cancellationToken = default)
     {
-        return await GetQueryable()
+        return await GetAllQueryable()
             .Where(mt => mt.AssignedTechnicianRef == technicianRef)
             .Where(mt => mt.Status != MaintenanceTaskStatus.Completed 
                       && mt.Status != MaintenanceTaskStatus.Cancelled)
@@ -80,7 +109,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
     {
         var now = DateTime.UtcNow;
         
-        return await GetQueryable()
+        return await GetAllQueryable()
             .Where(mt => mt.ScheduledDate < now)
             .Where(mt => mt.Status != MaintenanceTaskStatus.Completed 
                       && mt.Status != MaintenanceTaskStatus.Cancelled)
@@ -93,7 +122,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
         DateTime endDate,
         CancellationToken cancellationToken = default)
     {
-        return await GetQueryable()
+        return await GetAllQueryable()
             .Where(mt => mt.ScheduledDate >= startDate && mt.ScheduledDate <= endDate)
             .OrderBy(mt => mt.ScheduledDate)
             .ToListAsync(cancellationToken);

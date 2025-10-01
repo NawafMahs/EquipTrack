@@ -1,4 +1,7 @@
+using AutoMapper;
 using EquipTrack.Application.Assets.Queries;
+using EquipTrack.Application.DTOs;
+using EquipTrack.Application.Extensions;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Repositories;
 using FluentValidation;
@@ -13,13 +16,16 @@ internal class GetAssetByIdQueryHandler : IRequestHandler<GetAssetByIdQuery, Res
 {
     private readonly IAssetReadOnlyRepository _readRepository;
     private readonly IValidator<GetAssetByIdQuery> _validator;
+    private readonly IMapper _mapper;
 
     public GetAssetByIdQueryHandler(
         IAssetReadOnlyRepository readRepository,
-        IValidator<GetAssetByIdQuery> validator)
+        IValidator<GetAssetByIdQuery> validator,
+        IMapper mapper)
     {
         _readRepository = readRepository ?? throw new ArgumentNullException(nameof(readRepository));
         _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     public async Task<Result<AssetQuery>> Handle(GetAssetByIdQuery request, CancellationToken cancellationToken)

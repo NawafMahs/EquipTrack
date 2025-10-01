@@ -18,7 +18,7 @@ public abstract class BaseEntity : IEntity<Guid>, IAuditableEntity
     /// <summary>
     /// The UTC date and time when the entity was created.
     /// </summary>
-    public DateTime CreatedAt { get;private set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
     /// The UTC date and time when the entity was last updated.

@@ -29,37 +29,6 @@ public class WorkOrderQuery
     public List<WorkOrderSparePartQuery> SpareParts { get; set; } = new();
 }
 
-public class CreateWorkOrderCommand
-{
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public WorkOrderPriority Priority { get; set; }
-    public WorkOrderType Type { get; set; }
-    public DateTime? ScheduledDate { get; set; }
-    public decimal EstimatedHours { get; set; }
-    public decimal EstimatedCost { get; set; }
-    public Guid AssetId { get; set; }
-    public Guid? AssignedToUserId { get; set; }
-}
-
-public class UpdateWorkOrderCommand
-{
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public WorkOrderPriority Priority { get; set; }
-    public WorkOrderStatus Status { get; set; }
-    public WorkOrderType Type { get; set; }
-    public DateTime? ScheduledDate { get; set; }
-    public DateTime? StartedDate { get; set; }
-    public DateTime? CompletedDate { get; set; }
-    public decimal EstimatedHours { get; set; }
-    public decimal ActualHours { get; set; }
-    public decimal EstimatedCost { get; set; }
-    public decimal ActualCost { get; set; }
-    public string? CompletionNotes { get; set; }
-    public Guid? AssignedToUserId { get; set; }
-}
-
 public class WorkOrderSparePartQuery
 {
     public Guid Id { get; set; }

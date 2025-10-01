@@ -1,6 +1,6 @@
 using EquipTrack.Application.DTOs;
 using EquipTrack.Core.SharedKernel;
-using EquipTrack.Domain.Assets.Enums;
+using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Application.Interfaces;
 

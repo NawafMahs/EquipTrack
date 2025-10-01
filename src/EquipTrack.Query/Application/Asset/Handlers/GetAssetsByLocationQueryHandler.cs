@@ -2,11 +2,11 @@ using FluentValidation;
 using MediatR;
 using AutoMapper;
 using EquipTrack.Application.Assets.Queries;
-using EquipTrack.Application.Extensions;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Repositories;
-
 using EquipTrack.Application.DTOs;
+using EquipTrack.Application.Extensions;
+
 namespace EquipTrack.Application.Assets.Handlers;
 
 /// <summary>
@@ -15,17 +15,17 @@ namespace EquipTrack.Application.Assets.Handlers;
 internal class GetAssetsByLocationQueryHandler : IRequestHandler<GetAssetsByLocationQuery, Result<PaginatedList<AssetQuery>>>
 {
     private readonly IAssetReadOnlyRepository _readRepository;
-    private readonly IMapper _mapper;
     private readonly IValidator<GetAssetsByLocationQuery> _validator;
+    private readonly IMapper _mapper;
 
     public GetAssetsByLocationQueryHandler(
         IAssetReadOnlyRepository readRepository,
-        IMapper mapper,
-        IValidator<GetAssetsByLocationQuery> validator)
+        IValidator<GetAssetsByLocationQuery> validator,
+        IMapper mapper)
     {
         _readRepository = readRepository ?? throw new ArgumentNullException(nameof(readRepository));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     public async Task<Result<PaginatedList<AssetQuery>>> Handle(GetAssetsByLocationQuery request, CancellationToken cancellationToken)

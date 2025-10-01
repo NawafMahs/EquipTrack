@@ -61,8 +61,8 @@ internal class CreateAssetCommandHandler : IRequestHandler<CreateAssetCommand, R
                 request.SerialNumber, request.Model,
                 request.Manufacturer,
                 request.Location,
-                request.PurchaseDate,
-                request.PurchaseCost);
+                request.PurchaseDate ?? DateTime.UtcNow,
+                request.PurchaseCost ?? 0m);
 
             // Set optional purchase information if provided
             if (request.PurchaseDate != default || request.PurchaseCost != 0)

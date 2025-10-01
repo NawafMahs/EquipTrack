@@ -1,9 +1,8 @@
 using AutoMapper;
 using EquipTrack.Application.Assets.Commands;
 using EquipTrack.Application.DTOs;
-using EquipTrack.Domain.Assets.Entities;
 using EquipTrack.Domain.Entities;
-using AssetEntity = EquipTrack.Domain.Assets.Entities.Asset;
+using AssetEntity = EquipTrack.Domain.Entities.Asset;
 
 namespace EquipTrack.Application.Mappings;
 

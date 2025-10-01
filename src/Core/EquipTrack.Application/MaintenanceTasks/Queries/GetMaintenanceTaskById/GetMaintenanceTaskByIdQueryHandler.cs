@@ -1,4 +1,5 @@
 using EquipTrack.Core.SharedKernel;
+using EquipTrack.Domain.Enums;
 using EquipTrack.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ public sealed class GetMaintenanceTaskByIdQueryHandler
 
             // Use projection directly in the query for optimal performance
             var projection = await _repository
-                .GetQueryable()
+                .GetAllQueryable()
                 .Where(mt => mt.Id == query.Id)
                 .Select(mt => new MaintenanceTaskProjection
                 {
@@ -91,7 +92,7 @@ public sealed class GetMaintenanceTaskByIdQueryHandler
             if (projection == null)
             {
                 _logger.LogWarning("Maintenance task with ID {TaskId} not found", query.Id);
-                return Result<MaintenanceTaskProjection>.Failure(
+                return Result<MaintenanceTaskProjection>.Error(
                     $"Maintenance task with ID {query.Id} not found");
             }
 
@@ -102,13 +103,8 @@ public sealed class GetMaintenanceTaskByIdQueryHandler
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving maintenance task with ID: {TaskId}", query.Id);
-            return Result<MaintenanceTaskProjection>.Failure(
+            return Result<MaintenanceTaskProjection>.Error(
                 $"Error retrieving maintenance task: {ex.Message}");
         }
     }
 }
-
-// Note: We need to add the using statement for MaintenanceTaskStatus
-using EquipTrack.Domain.Enums;
-
-

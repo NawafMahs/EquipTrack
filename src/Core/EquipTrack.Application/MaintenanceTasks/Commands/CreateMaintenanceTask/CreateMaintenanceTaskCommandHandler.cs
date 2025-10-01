@@ -1,4 +1,3 @@
-using EquipTrack.Application.Common.Interfaces;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Common;
 using EquipTrack.Domain.Entities;
@@ -46,27 +45,25 @@ public sealed class CreateMaintenanceTaskCommandHandler
                 command.AssetRef, command.Type, command.Priority);
 
             // Verify asset exists
-            var assetExists = await _assetRepository.ExistsAsync(command.AssetRef, cancellationToken);
+            var assetExists = await _assetRepository.AnyAsync(command.AssetRef);
             if (!assetExists)
             {
                 _logger.LogWarning("Asset with ID {AssetRef} not found", command.AssetRef);
-                return Result<Guid>.Failure($"Asset with ID {command.AssetRef} not found");
+                return Result<Guid>.Error($"Asset with ID {command.AssetRef} not found");
             }
 
             // Verify creator exists
-            var creatorExists = await _userRepository.ExistsAsync(command.CreatedByRef, cancellationToken);
+            var creatorExists = await _userRepository.AnyAsync(command.CreatedByRef);
             if (!creatorExists)
             {
                 _logger.LogWarning("User with ID {CreatedByRef} not found", command.CreatedByRef);
-                return Result<Guid>.Failure($"User with ID {command.CreatedByRef} not found");
+                return Result<Guid>.Error($"User with ID {command.CreatedByRef} not found");
             }
 
             // If technician is assigned, verify they exist
             if (command.AssignedTechnicianRef.HasValue)
             {
-                var technicianExists = await _userRepository.ExistsAsync(
-                    command.AssignedTechnicianRef.Value, 
-                    cancellationToken);
+                var technicianExists = await _userRepository.AnyAsync(command.AssignedTechnicianRef.Value);
                     
                 if (!technicianExists)
                 {
@@ -74,7 +71,7 @@ public sealed class CreateMaintenanceTaskCommandHandler
                         "Technician with ID {TechnicianRef} not found", 
                         command.AssignedTechnicianRef.Value);
                         
-                    return Result<Guid>.Failure(
+                    return Result<Guid>.Error(
                         $"Technician with ID {command.AssignedTechnicianRef.Value} not found");
                 }
             }
@@ -97,23 +94,24 @@ public sealed class CreateMaintenanceTaskCommandHandler
                 var assignResult = maintenanceTask.AssignTechnician(command.AssignedTechnicianRef.Value);
                 if (!assignResult.IsSuccess)
                 {
+                    var errorMessage = string.Join(", ", assignResult.Errors);
                     _logger.LogWarning(
                         "Failed to assign technician: {Error}", 
-                        assignResult.Error);
+                        errorMessage);
                         
-                    return Result<Guid>.Failure(assignResult.Error);
+                    return Result<Guid>.Error(errorMessage);
                 }
             }
 
             // Add to repository
-            await _repository.AddAsync(maintenanceTask, cancellationToken);
+            await _repository.AddAsync(maintenanceTask);
 
             // Save changes
             var saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
             if (saveResult <= 0)
             {
                 _logger.LogError("Failed to save maintenance task to database");
-                return Result<Guid>.Failure("Failed to save maintenance task");
+                return Result<Guid>.Error("Failed to save maintenance task");
             }
 
             _logger.LogInformation(
@@ -125,7 +123,7 @@ public sealed class CreateMaintenanceTaskCommandHandler
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating maintenance task");
-            return Result<Guid>.Failure($"Error creating maintenance task: {ex.Message}");
+            return Result<Guid>.Error($"Error creating maintenance task: {ex.Message}");
         }
     }
 }

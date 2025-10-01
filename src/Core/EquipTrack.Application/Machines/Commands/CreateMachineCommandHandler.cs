@@ -36,14 +36,14 @@ public sealed class CreateMachineCommandHandler : IRequestHandler<CreateMachineC
                 request.MachineTypeRef
             );
 
-            await _machineRepository.AddAsync(machine, cancellationToken);
+            await _machineRepository.AddAsync(machine);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result<Guid>.Success(machine.Id);
         }
         catch (Exception ex)
         {
-            return Result<Guid>.Failure($"Failed to create machine: {ex.Message}");
+            return Result<Guid>.Error($"Failed to create machine: {ex.Message}");
         }
     }
 }

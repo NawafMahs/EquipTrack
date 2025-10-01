@@ -25,7 +25,7 @@ public class AuthController : BaseApiController
     /// <param name="loginDto">Login credentials</param>
     /// <returns>Login response with token and user details</returns>
     [HttpPost("login")]
-    public async Task<ActionResult<LoginQuery>> Login([FromBody] LoginCommand loginDto)
+    public async Task<IActionResult> Login([FromBody] LoginCommand loginDto)
     {
         var result = await _authService.LoginAsync(loginDto);
         return result.ToActionResult();
@@ -37,7 +37,7 @@ public class AuthController : BaseApiController
     /// <param name="createUserDto">User registration data</param>
     /// <returns>Created user details</returns>
     [HttpPost("register")]
-    public async Task<ActionResult<UserQuery>> Register([FromBody] CreateUserCommand createUserDto)
+    public async Task<IActionResult> Register([FromBody] CreateUserCommand createUserDto)
     {
         var result = await _authService.RegisterAsync(createUserDto);
         
@@ -54,7 +54,7 @@ public class AuthController : BaseApiController
     /// <param name="tokenRequest">Token validation request</param>
     /// <returns>Token validation result</returns>
     [HttpPost("validate-token")]
-    public async Task<ActionResult<bool>> ValidateToken([FromBody] TokenValidationRequest tokenRequest)
+    public async Task<IActionResult> ValidateToken([FromBody] TokenValidationRequest tokenRequest)
     {
         var result = await _authService.ValidateTokenAsync(tokenRequest.Token);
         return result.ToActionResult();
@@ -65,7 +65,7 @@ public class AuthController : BaseApiController
     /// </summary>
     /// <returns>Logout confirmation</returns>
     [HttpPost("logout")]
-    public async Task<ActionResult> Logout()
+    public async Task<IActionResult> Logout()
     {
         var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         var result = await _authService.LogoutAsync(token ?? string.Empty);

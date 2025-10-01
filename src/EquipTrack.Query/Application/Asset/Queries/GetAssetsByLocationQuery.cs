@@ -1,5 +1,6 @@
 using MediatR;
 using EquipTrack.Core.SharedKernel;
+using EquipTrack.Application.DTOs;
 namespace EquipTrack.Application.Assets.Queries;
 
 /// <summary>

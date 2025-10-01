@@ -7,16 +7,34 @@ public class WorkOrder : BaseEntity
 {
     // Properties
     public string Title { get; private set; } = default!;
+    public string? Description { get; private set; }
     public WorkOrderStatus Status { get; private set; } = default!;
+    public WorkOrderPriority Priority { get; private set; } = WorkOrderPriority.Medium;
+    public WorkOrderType Type { get; private set; } = WorkOrderType.Corrective;
     public DateTime RequestedDate { get; private set; }
     public DateTime? ScheduledDate { get; private set; }
     public DateTime? StartedDate { get; private set; }
     public DateTime? CompletedDate { get; private set; }
     public string? CompletionNotes { get; private set; }
+    public decimal? EstimatedHours { get; private set; }
+    public decimal? ActualHours { get; private set; }
+    public decimal? EstimatedCost { get; private set; }
+    public decimal? ActualCost { get; private set; }
 
     // EF Core navigation
     public Guid AssetRef { get; private set; }
     public virtual Asset Asset { get; private set; } = default!;
+    
+    // User references
+    public Guid? AssignedToUserRef { get; private set; }
+    public virtual User? AssignedToUser { get; private set; }
+    
+    public Guid? CreatedByUserRef { get; private set; }
+    public virtual User? CreatedByUser { get; private set; }
+    
+    // Spare parts used
+    private readonly List<WorkOrderSparePart> _workOrderSpareParts = new();
+    public virtual IReadOnlyCollection<WorkOrderSparePart> WorkOrderSpareParts => _workOrderSpareParts.AsReadOnly();
 
     // Private constructor for EF Core
     protected WorkOrder() { }

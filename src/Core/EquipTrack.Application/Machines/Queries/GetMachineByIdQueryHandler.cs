@@ -21,16 +21,16 @@ public sealed class GetMachineByIdQueryHandler : IRequestHandler<GetMachineByIdQ
     {
         try
         {
-            var machine = await _machineRepository.GetByIdAsync(request.MachineId, cancellationToken);
+            var machine = await _machineRepository.GetByIdAsync(request.MachineId);
             
             if (machine == null)
-                return Result<Machine>.Failure("Machine not found.");
+                return Result<Machine>.Error("Machine not found.");
 
             return Result<Machine>.Success(machine);
         }
         catch (Exception ex)
         {
-            return Result<Machine>.Failure($"Failed to retrieve machine: {ex.Message}");
+            return Result<Machine>.Error($"Failed to retrieve machine: {ex.Message}");
         }
     }
 }

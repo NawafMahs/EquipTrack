@@ -2,6 +2,7 @@ using EquipTrack.Application.Common.Interfaces;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Infrastructure.RabbitMQ.Abstractions;
 using EquipTrack.Infrastructure.RabbitMQ.Models;
+using EquipTrack.RabbitMQ.Models;
 using Microsoft.Extensions.Logging;
 
 namespace EquipTrack.Infrastructure.RabbitMQ.Services;
@@ -312,14 +313,14 @@ public sealed class RobotIntegrationService : IDisposable
     {
         return new RobotStatusInfo
         {
-            RobotId = statusMessage.RobotId,
+            RobotId = statusMessage.RobotId.ToString(),
             Status = statusMessage.Status.ToString().ToLowerInvariant(),
             Timestamp = statusMessage.Timestamp,
-            SensorReadings = statusMessage.SensorReadings,
-            ErrorCodes = statusMessage.ErrorCodes,
-            Warnings = statusMessage.Warnings,
+            SensorReadings = statusMessage.SensorReadings?.ToDictionary(sr => sr.SensorId, sr => sr.Value) ?? new Dictionary<string, decimal>(),
+            ErrorCodes = statusMessage.ErrorCodes ?? new List<string>(),
+            Warnings = statusMessage.Warnings ?? new List<string>(),
             BatteryLevel = statusMessage.BatteryLevel,
-            OperatingHours = statusMessage.OperatingHours,
+            OperatingHours = statusMessage.OperatingHours ?? 0m,
             FirmwareVersion = statusMessage.FirmwareVersion,
             ProductionInfo = statusMessage.ProductionInfo != null ? new ProductionStatusInfo
             {
@@ -327,17 +328,17 @@ public sealed class RobotIntegrationService : IDisposable
                 BatchNumber = statusMessage.ProductionInfo.BatchNumber,
                 StartedAt = statusMessage.ProductionInfo.StartedAt,
                 EstimatedCompletion = statusMessage.ProductionInfo.EstimatedCompletion,
-                ProgressPercentage = statusMessage.ProductionInfo.ProgressPercentage,
+                ProgressPercentage = statusMessage.ProductionInfo.ProgressPercentage ?? 0m,
                 CurrentStep = statusMessage.ProductionInfo.CurrentStep,
-                TotalSteps = statusMessage.ProductionInfo.TotalSteps,
-                CurrentStepNumber = statusMessage.ProductionInfo.CurrentStepNumber
+                TotalSteps = statusMessage.ProductionInfo.TotalSteps ?? 0,
+                CurrentStepNumber = statusMessage.ProductionInfo.CurrentStepNumber ?? 0
             } : null,
             NetworkInfo = statusMessage.NetworkInfo != null ? new NetworkStatusInfo
             {
-                SignalStrength = statusMessage.NetworkInfo.SignalStrength,
+                SignalStrength = (decimal)(statusMessage.NetworkInfo.SignalStrength ?? 0),
                 IpAddress = statusMessage.NetworkInfo.IpAddress,
                 ConnectionType = statusMessage.NetworkInfo.ConnectionType,
-                LastCommunication = statusMessage.NetworkInfo.LastCommunication
+                LastCommunication = statusMessage.NetworkInfo.LastCommunication ?? DateTime.UtcNow
             } : null
         };
     }

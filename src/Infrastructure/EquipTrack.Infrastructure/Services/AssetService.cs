@@ -4,8 +4,8 @@ using EquipTrack.Application.DTOs;
 using EquipTrack.Application.Interfaces;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Common;
-using EquipTrack.Domain.Assets.Entities;
-using EquipTrack.Domain.Assets.Enums;
+using EquipTrack.Domain.Entities;
+using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Infrastructure.Services;
 

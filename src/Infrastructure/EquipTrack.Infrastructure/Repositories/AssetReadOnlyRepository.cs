@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using EquipTrack.Domain.Assets.Entities;
-using EquipTrack.Domain.Assets.Enums;
 using EquipTrack.Domain.Repositories;
 using EquipTrack.Infrastructure.Data;
 using EquipTrack.Core.SharedKernel;
 using System.Linq.Expressions;
+using EquipTrack.Domain.Entities;
+using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Infrastructure.Repositories;
 
@@ -217,8 +217,8 @@ public class AssetReadOnlyRepository : IAssetReadOnlyRepository
         var currentDate = DateTime.UtcNow;
         return await _dbSet
             .Include(a => a.WorkOrders)
-            .Where(a => a.WarrantyExpirationDate.HasValue && a.WarrantyExpirationDate.Value > currentDate)
-            .OrderBy(a => a.WarrantyExpirationDate)
+            .Where(a => a.WarrantyExpiryDate.HasValue && a.WarrantyExpiryDate.Value > currentDate)
+            .OrderBy(a => a.WarrantyExpiryDate)
             .ToListAsync();
     }
 
@@ -229,10 +229,10 @@ public class AssetReadOnlyRepository : IAssetReadOnlyRepository
         
         return await _dbSet
             .Include(a => a.WorkOrders)
-            .Where(a => a.WarrantyExpirationDate.HasValue && 
-                       a.WarrantyExpirationDate.Value > currentDate &&
-                       a.WarrantyExpirationDate.Value <= expirationDate)
-            .OrderBy(a => a.WarrantyExpirationDate)
+            .Where(a => a.WarrantyExpiryDate.HasValue && 
+                       a.WarrantyExpiryDate.Value > currentDate &&
+                       a.WarrantyExpiryDate.Value <= expirationDate)
+            .OrderBy(a => a.WarrantyExpiryDate)
             .ToListAsync();
     }
 

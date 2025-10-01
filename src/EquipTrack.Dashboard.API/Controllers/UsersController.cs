@@ -175,6 +175,12 @@ public class UsersController : BaseApiController
 }
 
 
+public class ChangePasswordRequest
+{
+    public string CurrentPassword { get; set; } = string.Empty;
+    public string NewPassword { get; set; } = string.Empty;
+}
+
 public class ResetPasswordRequest
 {
     public string NewPassword { get; set; } = string.Empty;

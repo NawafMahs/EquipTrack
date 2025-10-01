@@ -64,16 +64,26 @@ public sealed class MaintenanceTaskWriteOnlyRepository : IMaintenanceTaskWriteOn
         _dbSet.RemoveRange(entities);
     }
 
-    public async Task AddAsync(
-        MaintenanceTask entity, 
-        CancellationToken cancellationToken = default)
+    public async Task AddAsync(MaintenanceTask entity)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        await _dbSet.AddAsync(entity);
     }
 
-    public async Task RemoveByIdAsync(
-        Guid id, 
-        CancellationToken cancellationToken = default)
+    public async Task AddAsync(MaintenanceTask maintenanceTask, CancellationToken cancellationToken = default)
+    {
+        await _dbSet.AddAsync(maintenanceTask, cancellationToken);
+    }
+
+    public async Task RemoveByIdAsync(Guid id)
+    {
+        var entity = await _dbSet.FindAsync(id);
+        if (entity != null)
+        {
+            _dbSet.Remove(entity);
+        }
+    }
+
+    public async Task RemoveByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entity = await _dbSet.FindAsync(new object[] { id }, cancellationToken);
         if (entity != null)
@@ -82,11 +92,14 @@ public sealed class MaintenanceTaskWriteOnlyRepository : IMaintenanceTaskWriteOn
         }
     }
 
-    public async Task AddRangeAsync(
-        IEnumerable<MaintenanceTask> entities, 
-        CancellationToken cancellationToken = default)
+    public async Task AddRangeAsync(IEnumerable<MaintenanceTask> entities)
     {
-        await _dbSet.AddRangeAsync(entities, cancellationToken);
+        await _dbSet.AddRangeAsync(entities);
+    }
+
+    public async Task AddRangeAsync(IEnumerable<MaintenanceTask> maintenanceTasks, CancellationToken cancellationToken = default)
+    {
+        await _dbSet.AddRangeAsync(maintenanceTasks, cancellationToken);
     }
 
     public void Dispose()

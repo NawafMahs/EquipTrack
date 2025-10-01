@@ -1,149 +1,111 @@
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Asp.Versioning;
-using System.Net.Mime;
-using System.ComponentModel.DataAnnotations;
-using EquipTrack.Application.Assets.Commands;
-using EquipTrack.Application.Assets.Queries;
-using EquipTrack.Core.SharedKernel;
 using EquipTrack.Application.DTOs;
-using EquipTrack.Domain.Assets.Enums;
+using EquipTrack.Application.Interfaces;
+using EquipTrack.Domain.Enums;
 using EquipTrack.Dashboard.API.Extensions;
-using EquipTrack.Dashboard.API.Models;
 
 namespace EquipTrack.Dashboard.API.Controllers;
 
 /// <summary>
-/// API controller for asset management operations using CQRS pattern.
+/// Controller for asset management operations
 /// </summary>
-[ApiController]
-[ApiVersion("1.0")]
-[Route("api/[controller]")]
 [Authorize]
-[Consumes(MediaTypeNames.Application.Json)]
-[Produces(MediaTypeNames.Application.Json)]
-public class AssetsController : ControllerBase
+public class AssetsController : BaseApiController
 {
-    private readonly IMediator _mediator;
+    private readonly IAssetService _assetService;
+    private readonly ILogger<AssetsController> _logger;
 
-    public AssetsController(IMediator mediator)
+    public AssetsController(IAssetService assetService, ILogger<AssetsController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _assetService = assetService;
+        _logger = logger;
     }
 
     /// <summary>
-    /// Get all assets with filtering and pagination.
+    /// Get all assets
     /// </summary>
-    /// <param name="pageNumber">Page number (starts from 1).</param>
-    /// <param name="pageSize">Page size.</param>
-    /// <param name="searchTerm">Search term to filter assets by name, asset tag, or serial number.</param>
-    /// <param name="status">Filter by asset status.</param>
-    /// <param name="criticality">Filter by asset criticality.</param>
-    /// <param name="location">Filter by asset location.</param>
-    /// <param name="manufacturer">Filter by manufacturer.</param>
-    /// <param name="orderBy">Field to order by.</param>
-    /// <param name="orderAscending">Order direction (true for ascending, false for descending).</param>
-    /// <returns>Paginated list of assets.</returns>
-    [HttpGet("GetAssets")]
-    [ProducesResponseType(typeof(ApiResponse<PaginatedList<AssetQuery>>), 200)]
-    [ProducesResponseType(typeof(ApiResponse), 400)]
-    [ProducesResponseType(typeof(ApiResponse), 404)]
-    [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> GetAssets(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 20,
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] AssetStatus? status = null,
-        [FromQuery] AssetCriticality? criticality = null,
-        [FromQuery] string? location = null,
-        [FromQuery] string? manufacturer = null,
-        [FromQuery] string orderBy = "Name",
-        [FromQuery] bool orderAscending = true)
+    /// <returns>List of assets</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAssets()
     {
-        var query = new GetAssetsQuery(
-            pageNumber, 
-            pageSize, 
-            searchTerm, 
-            status, 
-            criticality, 
-            location, 
-            manufacturer, 
-            orderBy, 
-            orderAscending);
+        var result = await _assetService.GetAllAssetsAsync();
+        return result.ToActionResult();
+    }
+
+    /// <summary>
+    /// Get a specific asset by ID
+    /// </summary>
+    /// <param name="id">Asset ID</param>
+    /// <returns>Asset details</returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAsset(Guid id)
+    {
+        var result = await _assetService.GetAssetByIdAsync(id);
+        return result.ToActionResult();
+    }
+
+    /// <summary>
+    /// Create a new asset
+    /// </summary>
+    /// <param name="createDto">Asset creation data</param>
+    /// <returns>Created asset</returns>
+    [HttpPost]
+    [Authorize(Roles = "Admin,Manager")]
+    public async Task<IActionResult> CreateAsset([FromBody] AssetQuery createDto)
+    {
+        var result = await _assetService.CreateAssetAsync(createDto);
         
-        var result = await _mediator.Send(query);
+        if (result.IsSuccess)
+        {
+            return CreatedAtAction(nameof(GetAsset), new { id = result.Value.Id }, result.Value);
+        }
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Get a specific asset by ID.
+    /// Update an existing asset
     /// </summary>
-    /// <param name="id">The asset ID.</param>
-    /// <returns>The asset with the specified ID.</returns>
-    [HttpGet("GetById/{id:guid}")]
-    [ProducesResponseType(typeof(ApiResponse<AssetQuery>), 200)]
-    [ProducesResponseType(typeof(ApiResponse), 400)]
-    [ProducesResponseType(typeof(ApiResponse), 404)]
-    [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> GetById(Guid id)
-    {
-        var query = new GetAssetByIdQuery(id);
-        var result = await _mediator.Send(query);
-        return result.ToActionResult();
-    }
-
-    /// <summary>
-    /// Create a new asset.
-    /// </summary>
-    /// <param name="command">The command containing asset creation data.</param>
-    /// <returns>The created asset ID.</returns>
-    [HttpPost("Create")]
+    /// <param name="id">Asset ID</param>
+    /// <param name="updateDto">Asset update data</param>
+    /// <returns>Updated asset</returns>
+    [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Manager")]
-    [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
-    [ProducesResponseType(typeof(ApiResponse), 400)]
-    [ProducesResponseType(typeof(ApiResponse), 404)]
-    [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Create([FromBody][Required] CreateAssetCommand command)
+    public async Task<IActionResult> UpdateAsset(Guid id, [FromBody] AssetQuery updateDto)
     {
-        var result = await _mediator.Send(command);
+        var result = await _assetService.UpdateAssetAsync(id, updateDto);
         return result.ToActionResult();
     }
 
     /// <summary>
-    /// Update an existing asset.
+    /// Delete an asset
     /// </summary>
-    /// <param name="id">The asset ID.</param>
-    /// <param name="command">The command containing updated asset data.</param>
-    /// <returns>Success result.</returns>
-    [HttpPut("Update/{id:guid}")]
-    [Authorize(Roles = "Admin,Manager")]
-    [ProducesResponseType(typeof(ApiResponse<Guid>), 200)]
-    [ProducesResponseType(typeof(ApiResponse), 400)]
-    [ProducesResponseType(typeof(ApiResponse), 404)]
-    [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateAssetCommand command)
-    {
-
-        var result = await _mediator.Send(command);
-        return result.ToActionResult();
-    }
-
-    /// <summary>
-    /// Delete an asset.
-    /// </summary>
-    /// <param name="id">The asset ID.</param>
-    /// <returns>Success result.</returns>
-    [HttpDelete("Delete/{id:guid}")]
+    /// <param name="id">Asset ID</param>
+    /// <returns>Success message</returns>
+    [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
-    [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
-    [ProducesResponseType(typeof(ApiResponse), 400)]
-    [ProducesResponseType(typeof(ApiResponse), 404)]
-    [ProducesResponseType(typeof(ApiResponse), 500)]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsset(Guid id)
     {
-        var command = new DeleteAssetCommand(id);
-        var result = await _mediator.Send(command);
+        var result = await _assetService.DeleteAssetAsync(id);
         return result.ToActionResult();
     }
+
+    /// <summary>
+    /// Update asset status
+    /// </summary>
+    /// <param name="id">Asset ID</param>
+    /// <param name="request">Status update request</param>
+    /// <returns>Updated asset</returns>
+    [HttpPatch("{id}/status")]
+    [Authorize(Roles = "Admin,Manager,Technician")]
+    public async Task<IActionResult> UpdateAssetStatus(Guid id, [FromBody] UpdateAssetStatusRequest request)
+    {
+        var result = await _assetService.UpdateAssetStatusAsync(id, request.Status);
+        return result.ToActionResult();
+    }
+}
+
+public class UpdateAssetStatusRequest
+{
+    public AssetStatus Status { get; set; }
 }

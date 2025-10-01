@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using EquipTrack.Application.DTOs;
 using EquipTrack.Application.Interfaces;
+    using EquipTrack.Application.WorkOrders.Commands;
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Common;
 using EquipTrack.Domain.Entities;

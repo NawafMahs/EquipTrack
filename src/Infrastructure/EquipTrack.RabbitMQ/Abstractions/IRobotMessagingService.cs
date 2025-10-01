@@ -1,5 +1,6 @@
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Infrastructure.RabbitMQ.Models;
+using EquipTrack.RabbitMQ.Models;
 
 namespace EquipTrack.Infrastructure.RabbitMQ.Abstractions;
 

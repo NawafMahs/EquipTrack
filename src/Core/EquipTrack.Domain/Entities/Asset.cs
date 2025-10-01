@@ -6,14 +6,17 @@ namespace EquipTrack.Domain.Entities;
 
 public class Asset : BaseEntity, IAggregateRoot
 {
-    // Simple properties with init
-    public string Name { get; init; } = default!;
-    public string Description { get; init; } = default!;
-    public string SerialNumber { get; init; } = default!;
-    public string Model { get; init; } = default!;
-    public string Manufacturer { get; init; } = default!;
-    public DateTime PurchaseDate { get; init; }
-    public decimal PurchasePrice { get; init; } 
+    // Simple properties with private set for mutability
+    public string Name { get; private set; } = default!;
+    public string Description { get; private set; } = default!;
+    public string SerialNumber { get; private set; } = default!;
+    public string Model { get; private set; } = default!;
+    public string Manufacturer { get; private set; } = default!;
+    public string AssetTag { get; private set; } = default!;
+    public DateTime PurchaseDate { get; private set; }
+    public decimal PurchasePrice { get; private set; }
+    public AssetCriticality Criticality { get; private set; }
+    public DateTime? InstallationDate { get; private set; }
 
     // Properties that can change internally
     public string Location { get; private set; } = default!;
@@ -41,7 +44,9 @@ public class Asset : BaseEntity, IAggregateRoot
         string manufacturer,
         string location,
         DateTime purchaseDate,
-        decimal purchasePrice)
+        decimal purchasePrice,
+        string assetTag = "",
+        AssetCriticality criticality = AssetCriticality.Medium)
     {
         Name = Ensure.NotEmpty(name, nameof(name));
         Description = Ensure.NotEmpty(description, nameof(description));
@@ -51,11 +56,8 @@ public class Asset : BaseEntity, IAggregateRoot
         Location = Ensure.NotEmpty(location, nameof(location));
         PurchaseDate = purchaseDate;
         PurchasePrice = Ensure.Positive(purchasePrice, nameof(purchasePrice));
-    }
-    protected Asset(DateTime purchaseDate, decimal purchasePrice)
-    {
-        PurchaseDate = purchaseDate;
-        PurchasePrice = purchasePrice;
+        AssetTag = assetTag;
+        Criticality = criticality;
     }
 
     // Factory Method
@@ -75,6 +77,61 @@ public class Asset : BaseEntity, IAggregateRoot
 
     #region Behaviors
 
+    public void SetName(string name)
+    {
+        Name = Ensure.NotEmpty(name, nameof(name));
+    }
+
+    public void SetDescription(string description)
+    {
+        Description = Ensure.NotEmpty(description, nameof(description));
+    }
+
+    public void SetAssetTag(string assetTag)
+    {
+        AssetTag = assetTag ?? string.Empty;
+    }
+
+    public void SetSerialNumber(string serialNumber)
+    {
+        SerialNumber = Ensure.NotEmpty(serialNumber, nameof(serialNumber));
+    }
+
+    public void SetManufacturer(string manufacturer)
+    {
+        Manufacturer = Ensure.NotEmpty(manufacturer, nameof(manufacturer));
+    }
+
+    public void SetModel(string model)
+    {
+        Model = Ensure.NotEmpty(model, nameof(model));
+    }
+
+    public void SetCriticality(AssetCriticality criticality)
+    {
+        Criticality = criticality;
+    }
+
+    public void SetInstallationDate(DateTime? installationDate)
+    {
+        InstallationDate = installationDate;
+    }
+
+    public void SetWarrantyExpirationDate(DateTime? expirationDate)
+    {
+        if (expirationDate.HasValue && expirationDate.Value < PurchaseDate)
+            throw new ArgumentException("Warranty expiry cannot be before purchase date.", nameof(expirationDate));
+        WarrantyExpiryDate = expirationDate;
+    }
+
+    public void SetPurchaseInfo(DateTime? purchaseDate, decimal? purchasePrice)
+    {
+        if (purchaseDate.HasValue)
+            PurchaseDate = purchaseDate.Value;
+        if (purchasePrice.HasValue)
+            PurchasePrice = purchasePrice.Value;
+    }
+
     public void UpdateLocation(string newLocation)
     {
         Location = Ensure.NotEmpty(newLocation, nameof(newLocation));
@@ -85,6 +142,11 @@ public class Asset : BaseEntity, IAggregateRoot
         if (!IsValidStatusTransition(newStatus))
             throw new InvalidOperationException($"Invalid status transition: {Status} → {newStatus}");
         Status = newStatus;
+    }
+
+    public void UpdateStatus(AssetStatus newStatus)
+    {
+        ChangeStatus(newStatus);
     }
 
     public void AddWorkOrder(WorkOrder workOrder)
@@ -114,10 +176,10 @@ public class Asset : BaseEntity, IAggregateRoot
     {
         ImageUrl = Ensure.NotEmpty(imageUrl, nameof(imageUrl));
     }
-
-    public Asset SetPurchaseInfo(DateTime purchaseDate, decimal purchasePrice) => new(purchaseDate, purchasePrice);
     
     public bool IsUnderWarranty() => WarrantyExpiryDate.HasValue && WarrantyExpiryDate.Value > DateTime.UtcNow;
+
+    public bool IsOperational() => Status == AssetStatus.Active;
 
 
     #endregion

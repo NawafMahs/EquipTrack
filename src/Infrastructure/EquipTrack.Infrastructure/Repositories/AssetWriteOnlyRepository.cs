@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using EquipTrack.Domain.Assets.Entities;
 using EquipTrack.Domain.Repositories;
 using EquipTrack.Infrastructure.Data;
+using EquipTrack.Domain.Entities;
 
 namespace EquipTrack.Infrastructure.Repositories;
 

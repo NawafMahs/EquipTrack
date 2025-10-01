@@ -14,7 +14,7 @@ namespace EquipTrack.Infrastructure.RabbitMQ.Services;
 public sealed class MaintenanceEventPublisher : IMaintenanceEventPublisher, IDisposable
 {
     private readonly IConnection _connection;
-    private readonly IModel _channel;
+    private readonly IChannel _channel;
     private readonly ILogger<MaintenanceEventPublisher> _logger;
     
     // Exchange and routing key configuration
@@ -27,23 +27,23 @@ public sealed class MaintenanceEventPublisher : IMaintenanceEventPublisher, IDis
     private const string SparePartsConsumedRoutingKey = "maintenance.spareparts.consumed";
 
     public MaintenanceEventPublisher(
-        IConnectionFactory connectionFactory,
+        IConnection connection,
         ILogger<MaintenanceEventPublisher> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _connection = connection ?? throw new ArgumentNullException(nameof(connection));
         
         try
         {
-            // Create connection and channel
-            _connection = connectionFactory.CreateConnection();
-            _channel = _connection.CreateModel();
+            // Create channel
+            _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
             
             // Declare the exchange (topic exchange for flexible routing)
-            _channel.ExchangeDeclare(
+            _channel.ExchangeDeclareAsync(
                 exchange: MaintenanceExchange,
                 type: ExchangeType.Topic,
                 durable: true,
-                autoDelete: false);
+                autoDelete: false).GetAwaiter().GetResult();
             
             _logger.LogInformation(
                 "MaintenanceEventPublisher initialized with exchange: {Exchange}",
@@ -136,12 +136,14 @@ public sealed class MaintenanceEventPublisher : IMaintenanceEventPublisher, IDis
             var body = Encoding.UTF8.GetBytes(json);
             
             // Set message properties
-            var properties = _channel.CreateBasicProperties();
-            properties.Persistent = true;
-            properties.ContentType = "application/json";
-            properties.MessageId = eventMessage.MessageId;
-            properties.Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-            properties.Type = eventMessage.EventType;
+            var properties = new BasicProperties
+            {
+                Persistent = true,
+                ContentType = "application/json",
+                MessageId = eventMessage.MessageId,
+                Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds()),
+                Type = eventMessage.EventType
+            };
             
             if (!string.IsNullOrEmpty(eventMessage.CorrelationId))
             {
@@ -149,11 +151,12 @@ public sealed class MaintenanceEventPublisher : IMaintenanceEventPublisher, IDis
             }
             
             // Publish the message
-            _channel.BasicPublish(
+            _channel.BasicPublishAsync(
                 exchange: MaintenanceExchange,
                 routingKey: routingKey,
+                mandatory: false,
                 basicProperties: properties,
-                body: body);
+                body: body).GetAwaiter().GetResult();
             
             _logger.LogInformation(
                 "Published event {EventType} with ID {MessageId} to routing key {RoutingKey}",
@@ -179,9 +182,9 @@ public sealed class MaintenanceEventPublisher : IMaintenanceEventPublisher, IDis
     {
         try
         {
-            _channel?.Close();
+            _channel?.CloseAsync().GetAwaiter().GetResult();
             _channel?.Dispose();
-            _connection?.Close();
+            _connection?.CloseAsync().GetAwaiter().GetResult();
             _connection?.Dispose();
             
             _logger.LogInformation("MaintenanceEventPublisher disposed");

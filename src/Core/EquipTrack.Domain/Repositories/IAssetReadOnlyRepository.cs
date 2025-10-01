@@ -100,7 +100,3 @@ public interface IAssetReadOnlyRepository : IReadOnlyRepository<Asset, Guid>
     /// <returns>List of assets with warranty expiring soon.</returns>
     Task<List<Asset>> GetAssetsWithWarrantyExpiringAsync(int days);
 }
-
-public class AssetCriticality
-{
-}

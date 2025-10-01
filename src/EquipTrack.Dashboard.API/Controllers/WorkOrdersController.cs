@@ -40,11 +40,8 @@ public class WorkOrdersController : ControllerBase
     /// <param name="searchTerm">Search term to filter work orders.</param>
     /// <param name="status">Filter by work order status.</param>
     /// <param name="priority">Filter by work order priority.</param>
-    /// <param name="type">Filter by work order type.</param>
     /// <param name="assetId">Filter by asset ID.</param>
     /// <param name="assignedToUserId">Filter by assigned user ID.</param>
-    /// <param name="orderBy">Field to order by.</param>
-    /// <param name="orderAscending">Order direction (true for ascending, false for descending).</param>
     /// <returns>Paginated list of work orders.</returns>
     [HttpGet("GetWorkOrders")]
     [ProducesResponseType(typeof(ApiResponse<PaginatedList<WorkOrderQuery>>), 200)]
@@ -57,23 +54,17 @@ public class WorkOrdersController : ControllerBase
         [FromQuery] string? searchTerm = null,
         [FromQuery] WorkOrderStatus? status = null,
         [FromQuery] WorkOrderPriority? priority = null,
-        [FromQuery] WorkOrderType? type = null,
         [FromQuery] Guid? assetId = null,
-        [FromQuery] Guid? assignedToUserId = null,
-        [FromQuery] string orderBy = "RequestedDate",
-        [FromQuery] bool orderAscending = false)
+        [FromQuery] Guid? assignedToUserId = null)
     {
         var query = new GetWorkOrdersQuery(
-            pageNumber,
-            pageSize,
-            searchTerm,
             status,
             priority,
-            type,
             assetId,
             assignedToUserId,
-            orderBy,
-            orderAscending);
+            pageNumber,
+            pageSize,
+            searchTerm);
 
         var result = await _mediator.Send(query);
         return result.ToActionResult();
@@ -127,8 +118,7 @@ public class WorkOrdersController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse), 500)]
     public async Task<IActionResult> Update(Guid id, [FromBody][Required] UpdateWorkOrderCommand command)
     {
-        var updateCommand = new UpdateWorkOrderByIdCommand(id, command);
-        var result = await _mediator.Send(updateCommand);
+        var result = await _mediator.Send(command);
         return result.ToActionResult();
     }
 

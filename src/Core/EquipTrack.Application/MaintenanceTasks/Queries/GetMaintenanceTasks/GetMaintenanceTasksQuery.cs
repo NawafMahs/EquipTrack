@@ -1,3 +1,4 @@
+using EquipTrack.Application.Common.Behaviors;
 using EquipTrack.Application.Common.Interfaces;
 using EquipTrack.Application.MaintenanceTasks.Queries.GetMaintenanceTaskById;
 using EquipTrack.Core.SharedKernel;

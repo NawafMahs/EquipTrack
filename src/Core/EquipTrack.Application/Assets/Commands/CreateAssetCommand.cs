@@ -1,5 +1,6 @@
 using MediatR;
 using EquipTrack.Core.SharedKernel;
+using EquipTrack.Domain.Enums;
 using EquipTrack.Domain.Repositories;
 
 namespace EquipTrack.Application.Assets.Commands;
@@ -95,12 +96,12 @@ public sealed record CreateAssetCommand : IRequest<Result<Guid>>
     /// <summary>
     /// Asset purchase date.
     /// </summary>
-    public DateTime PurchaseDate { get; init; }
+    public DateTime? PurchaseDate { get; init; }
 
     /// <summary>
     /// Asset purchase cost.
     /// </summary>
-    public decimal PurchaseCost { get; init; }
+    public decimal? PurchaseCost { get; init; }
 
     /// <summary>
     /// Asset installation date.

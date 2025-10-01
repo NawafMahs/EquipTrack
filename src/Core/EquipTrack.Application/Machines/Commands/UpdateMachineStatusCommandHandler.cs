@@ -28,24 +28,24 @@ public sealed class UpdateMachineStatusCommandHandler : IRequestHandler<UpdateMa
     {
         try
         {
-            var machine = await _machineReadRepository.GetByIdAsync(request.MachineId, cancellationToken);
+            var machine = await _machineReadRepository.GetByIdAsync(request.MachineId);
             if (machine == null)
-                return Result.Failure("Machine not found.");
+                return Result.Error("Machine not found.");
 
             machine.ChangeStatus(request.NewStatus);
 
-            await _machineWriteRepository.UpdateAsync(machine, cancellationToken);
+            _machineWriteRepository.Update(machine);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }
         catch (InvalidOperationException ex)
         {
-            return Result.Failure(ex.Message);
+            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
-            return Result.Failure($"Failed to update machine status: {ex.Message}");
+            return Result.Error($"Failed to update machine status: {ex.Message}");
         }
     }
 }

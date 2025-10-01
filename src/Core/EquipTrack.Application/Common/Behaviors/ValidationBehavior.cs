@@ -99,7 +99,7 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         // Fallback to Result.Failure for non-generic Result
         if (responseType == typeof(Result))
         {
-            return (TResponse)(object)Result.Failure(errorMessage);
+            return (TResponse)(object)Result.Error(errorMessage);
         }
 
         throw new InvalidOperationException(

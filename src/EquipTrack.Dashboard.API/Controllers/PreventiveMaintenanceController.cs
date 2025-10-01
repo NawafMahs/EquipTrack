@@ -28,7 +28,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// </summary>
     /// <returns>List of preventive maintenances</returns>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PreventiveMaintenanceQuery>>> GetPreventiveMaintenances()
+    public async Task<IActionResult> GetPreventiveMaintenances()
     {
         var result = await _preventiveMaintenanceService.GetAllPreventiveMaintenancesAsync();
         return result.ToActionResult();
@@ -40,7 +40,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <param name="id">Preventive maintenance ID</param>
     /// <returns>Preventive maintenance details</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<PreventiveMaintenanceQuery>> GetPreventiveMaintenance(Guid id)
+    public async Task<IActionResult> GetPreventiveMaintenance(Guid id)
     {
         var result = await _preventiveMaintenanceService.GetPreventiveMaintenanceByIdAsync(id);
         return result.ToActionResult();
@@ -52,7 +52,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <param name="assetId">Asset ID</param>
     /// <returns>List of preventive maintenances for the specified asset</returns>
     [HttpGet("asset/{assetId}")]
-    public async Task<ActionResult<IEnumerable<PreventiveMaintenanceQuery>>> GetPreventiveMaintenancesByAsset(Guid assetId)
+    public async Task<IActionResult> GetPreventiveMaintenancesByAsset(Guid assetId)
     {
         var result = await _preventiveMaintenanceService.GetPreventiveMaintenancesByAssetAsync(assetId);
         return result.ToActionResult();
@@ -63,7 +63,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// </summary>
     /// <returns>List of overdue preventive maintenances</returns>
     [HttpGet("overdue")]
-    public async Task<ActionResult<IEnumerable<PreventiveMaintenanceQuery>>> GetOverduePreventiveMaintenances()
+    public async Task<IActionResult> GetOverduePreventiveMaintenances()
     {
         var result = await _preventiveMaintenanceService.GetOverduePreventiveMaintenancesAsync();
         return result.ToActionResult();
@@ -74,7 +74,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// </summary>
     /// <returns>List of preventive maintenances due soon</returns>
     [HttpGet("due-soon")]
-    public async Task<ActionResult<IEnumerable<PreventiveMaintenanceQuery>>> GetDueSoonPreventiveMaintenances()
+    public async Task<IActionResult> GetDueSoonPreventiveMaintenances()
     {
         var result = await _preventiveMaintenanceService.GetDueSoonPreventiveMaintenancesAsync();
         return result.ToActionResult();
@@ -87,7 +87,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <returns>Created preventive maintenance</returns>
     [HttpPost]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<PreventiveMaintenanceQuery>> CreatePreventiveMaintenance([FromBody] CreatePreventiveMaintenanceCommand createDto)
+    public async Task<IActionResult> CreatePreventiveMaintenance([FromBody] CreatePreventiveMaintenanceCommand createDto)
     {
         var result = await _preventiveMaintenanceService.CreatePreventiveMaintenanceAsync(createDto);
         
@@ -106,7 +106,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <returns>Updated preventive maintenance</returns>
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Manager")]
-    public async Task<ActionResult<PreventiveMaintenanceQuery>> UpdatePreventiveMaintenance(Guid id, [FromBody] UpdatePreventiveMaintenanceCommand updateDto)
+    public async Task<IActionResult> UpdatePreventiveMaintenance(Guid id, [FromBody] UpdatePreventiveMaintenanceCommand updateDto)
     {
         var result = await _preventiveMaintenanceService.UpdatePreventiveMaintenanceAsync(id, updateDto);
         return result.ToActionResult();
@@ -119,7 +119,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <returns>Success message</returns>
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> DeletePreventiveMaintenance(Guid id)
+    public async Task<IActionResult> DeletePreventiveMaintenance(Guid id)
     {
         var result = await _preventiveMaintenanceService.DeletePreventiveMaintenanceAsync(id);
         return result.ToActionResult();
@@ -132,7 +132,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <returns>Generated work order</returns>
     [HttpPost("{id}/generate-work-order")]
     [Authorize(Roles = "Admin,Manager,Technician")]
-    public async Task<ActionResult<WorkOrderQuery>> GenerateWorkOrderFromPreventiveMaintenance(Guid id)
+    public async Task<IActionResult> GenerateWorkOrderFromPreventiveMaintenance(Guid id)
     {
         var result = await _preventiveMaintenanceService.GenerateWorkOrderFromPreventiveMaintenanceAsync(id);
         return result.ToActionResult();
@@ -145,7 +145,7 @@ public class PreventiveMaintenanceController : BaseApiController
     /// <returns>Success message</returns>
     [HttpPost("{id}/complete")]
     [Authorize(Roles = "Admin,Manager,Technician")]
-    public async Task<ActionResult> MarkAsCompleted(Guid id)
+    public async Task<IActionResult> MarkAsCompleted(Guid id)
     {
         var result = await _preventiveMaintenanceService.MarkAsCompletedAsync(id);
         return result.ToActionResult();

@@ -3,8 +3,43 @@ using EquipTrack.Query.Abstractions;
 
 namespace EquipTrack.Query.QueryModels;
 
-public class AssetQueryModel : IQueryModel<Guid>
+public record AssetQueryModel : IQueryModel<Guid>
 {
+    public AssetQueryModel(Guid id,
+                           AssetStatus? status,
+                           string? location,
+                           string? manufacturer,
+                           string? category,
+                           string? searchTerm,
+                           DateTime? purchaseDateFrom,
+                           DateTime? purchaseDateTo,
+                           decimal? minValue,
+                           decimal? maxValue,
+                           bool? hasActiveWorkOrders,
+                           bool? isUnderWarranty,
+                           string? sortBy,
+                           string? sortDirection,
+                           int page,
+                           int pageSize)
+    {
+        Id = id;
+        Status = status;
+        Location = location;
+        Manufacturer = manufacturer;
+        Category = category;
+        SearchTerm = searchTerm;
+        PurchaseDateFrom = purchaseDateFrom;
+        PurchaseDateTo = purchaseDateTo;
+        MinValue = minValue;
+        MaxValue = maxValue;
+        HasActiveWorkOrders = hasActiveWorkOrders;
+        IsUnderWarranty = isUnderWarranty;
+        SortBy = sortBy;
+        SortDirection = sortDirection;
+        Page = page;
+        PageSize = pageSize;
+    }
+
     public Guid Id { get; set; }
     public AssetStatus? Status { get; set; }
     public string? Location { get; set; }
@@ -21,6 +56,9 @@ public class AssetQueryModel : IQueryModel<Guid>
     public string? SortDirection { get; set; } = "ASC";
     public int Page { get; set; } = 1;
     public int PageSize { get; set; } = 20;
+
+    
+    
 }
 
 public class AssetMaintenanceQueryModel

@@ -2,6 +2,7 @@ using EquipTrack.Core.SharedKernel;
 using EquipTrack.Infrastructure.RabbitMQ.Abstractions;
 using EquipTrack.Infrastructure.RabbitMQ.Configuration;
 using EquipTrack.Infrastructure.RabbitMQ.Models;
+using EquipTrack.RabbitMQ.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;

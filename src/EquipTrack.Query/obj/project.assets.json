@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "AutoMapper/13.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "FluentValidation/12.0.0": {
         "type": "package",
         "compile": {
@@ -11,6 +27,23 @@
         },
         "runtime": {
           "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
             "related": ".xml"
           }
         }
@@ -374,6 +407,26 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
+      "EquipTrack.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "AutoMapper": "13.0.1",
+          "EquipTrack.Core": "1.0.0",
+          "EquipTrack.Domain": "1.0.0",
+          "FluentValidation": "11.11.0",
+          "FluentValidation.DependencyInjectionExtensions": "11.11.0",
+          "MediatR": "13.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0"
+        },
+        "compile": {
+          "bin/placeholder/EquipTrack.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EquipTrack.Application.dll": {}
+        }
+      },
       "EquipTrack.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -403,6 +456,21 @@
     }
   },
   "libraries": {
+    "AutoMapper/13.0.1": {
+      "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
+      "type": "package",
+      "path": "automapper/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.13.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net6.0/AutoMapper.dll",
+        "lib/net6.0/AutoMapper.xml"
+      ]
+    },
     "FluentValidation/12.0.0": {
       "sha512": "8NVLxtMUXynRHJIX3Hn1ACovaqZIJASufXIIFkD0EUbcd5PmMsL1xUD5h548gCezJ5BzlITaR9CAMrGe29aWpA==",
       "type": "package",
@@ -416,6 +484,23 @@
         "fluentvalidation.nuspec",
         "lib/net8.0/FluentValidation.dll",
         "lib/net8.0/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.DependencyInjectionExtensions/11.11.0": {
+      "sha512": "viTKWaMbL3yJYgGI0DiCeavNbE9UPMWFVK2XS9nYXGbm3NDMd0/L5ER4wBzmTtW3BYh3SrlSXm9RACiKZ6stlA==",
+      "type": "package",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.nuspec",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "MediatR/13.0.0": {
@@ -1036,6 +1121,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "EquipTrack.Application/1.0.0": {
+      "type": "project",
+      "path": "../Core/EquipTrack.Application/EquipTrack.Application.csproj",
+      "msbuildProject": "../Core/EquipTrack.Application/EquipTrack.Application.csproj"
+    },
     "EquipTrack.Core/1.0.0": {
       "type": "project",
       "path": "../Core/EquipTrack.Core/EquipTrack.Core.csproj",
@@ -1049,6 +1139,8 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "AutoMapper >= 13.0.1",
+      "EquipTrack.Application >= 1.0.0",
       "EquipTrack.Core >= 1.0.0",
       "EquipTrack.Domain >= 1.0.0",
       "FluentValidation >= 12.0.0",
@@ -1084,6 +1176,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+            "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Application/EquipTrack.Application.csproj": {
+              "projectPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Application/EquipTrack.Application.csproj"
+            },
             "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/EquipTrack.Core.csproj": {
               "projectPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Core/EquipTrack.Core.csproj"
             },
@@ -1109,6 +1204,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[13.0.1, )"
+          },
           "FluentValidation": {
             "target": "Package",
             "version": "[12.0.0, )"
