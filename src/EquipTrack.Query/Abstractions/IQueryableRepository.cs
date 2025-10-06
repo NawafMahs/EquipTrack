@@ -1,4 +1,4 @@
-using EquipTrack.Domain.Common;
+using EquipTrack.Core.SharedKernel;
 
 namespace EquipTrack.Query.Abstractions;
 

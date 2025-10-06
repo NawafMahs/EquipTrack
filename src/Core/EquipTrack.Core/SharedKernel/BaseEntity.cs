@@ -6,11 +6,13 @@ namespace EquipTrack.Core.SharedKernel;
 /// </summary>
 public abstract class BaseEntity : IEntity<Guid>
 {
+    private readonly List<BaseEvent> _domainEvents = [];
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseEntity"/> class
     /// with a new unique identifier generated automatically.
     /// </summary>
-    protected BaseEntity() 
+    protected BaseEntity()
     {
         Id = Guid.NewGuid();
         CreatedAt = DateTime.UtcNow;
@@ -21,11 +23,14 @@ public abstract class BaseEntity : IEntity<Guid>
     /// with the specified unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier to assign to this entity.</param>
-    protected BaseEntity(Guid id) 
+    protected BaseEntity(Guid id)
     {
         Id = id;
         CreatedAt = DateTime.UtcNow;
     }
+
+    public IEnumerable<BaseEvent> DoaminEvents => _domainEvents.AsReadOnly();
+
 
     /// <summary>
     /// Gets the unique identifier of the entity.
@@ -50,4 +55,9 @@ public abstract class BaseEntity : IEntity<Guid>
     {
         UpdatedAt = DateTime.UtcNow;
     }
+
+    protected void AddDomainEvent(BaseEvent eventItem) => _domainEvents.Add(eventItem);
+
+    public void ClearDomainEvents() => _domainEvents.Clear();
+
 }

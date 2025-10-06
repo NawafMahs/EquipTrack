@@ -1,5 +1,6 @@
 using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Common;
+using EquipTrack.Domain.Enums;
 using EquipTrack.Domain.Repositories;
 using MediatR;
 
@@ -32,7 +33,9 @@ public sealed class UpdateMachineStatusCommandHandler : IRequestHandler<UpdateMa
             if (machine == null)
                 return Result.Error("Machine not found.");
 
-            machine.ChangeStatus(request.NewStatus);
+            // Convert MachineStatus to AssetStatus
+            var assetStatus = ConvertMachineStatusToAssetStatus(request.NewStatus);
+            machine.ChangeStatus(assetStatus);
 
             _machineWriteRepository.Update(machine);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -47,5 +50,21 @@ public sealed class UpdateMachineStatusCommandHandler : IRequestHandler<UpdateMa
         {
             return Result.Error($"Failed to update machine status: {ex.Message}");
         }
+    }
+
+    /// <summary>
+    /// Converts MachineStatus to AssetStatus
+    /// </summary>
+    private static AssetStatus ConvertMachineStatusToAssetStatus(MachineStatus machineStatus)
+    {
+        return machineStatus switch
+        {
+            MachineStatus.Idle => AssetStatus.Idle,
+            MachineStatus.Running => AssetStatus.Running,
+            MachineStatus.Error => AssetStatus.Error,
+            MachineStatus.Maintenance => AssetStatus.UnderMaintenance,
+            MachineStatus.OutOfService => AssetStatus.OutOfService,
+            _ => throw new ArgumentException($"Unknown machine status: {machineStatus}", nameof(machineStatus))
+        };
     }
 }

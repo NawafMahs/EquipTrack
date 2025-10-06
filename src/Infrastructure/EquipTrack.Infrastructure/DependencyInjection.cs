@@ -1,14 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using EquipTrack.Application.Interfaces;
-using EquipTrack.Domain.Common;
-using EquipTrack.Domain.Repositories;
+using EquipTrack.Application.Common.Interfaces;
 using EquipTrack.Infrastructure.Data;
 using EquipTrack.Infrastructure.Repositories;
 using EquipTrack.Infrastructure.Services;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EquipTrack.Infrastructure;
 

@@ -862,6 +862,25 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "Microsoft.Extensions.Configuration.Binder/9.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.9"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets": {}
+        }
+      },
       "Microsoft.Extensions.Configuration.FileExtensions/9.0.0": {
         "type": "package",
         "dependencies": {
@@ -1201,6 +1220,49 @@
         },
         "build": {
           "buildTransitive/net8.0/Microsoft.Extensions.Options.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Options.ConfigurationExtensions/9.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.9",
+          "Microsoft.Extensions.Configuration.Binder": "9.0.9",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.9",
+          "Microsoft.Extensions.Options": "9.0.9",
+          "Microsoft.Extensions.Primitives": "9.0.9"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Options.DataAnnotations/9.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.9",
+          "Microsoft.Extensions.Options": "9.0.9"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.Options.DataAnnotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Options.DataAnnotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "Microsoft.Extensions.Primitives/9.0.9": {
@@ -1918,7 +1980,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "System.Text.Json": "9.0.0"
+          "MediatR": "13.0.0",
+          "Microsoft.Extensions.DependencyInjection": "9.0.9",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "9.0.9",
+          "Microsoft.Extensions.Options.DataAnnotations": "9.0.9"
         },
         "compile": {
           "bin/placeholder/EquipTrack.Core.dll": {}
@@ -3538,6 +3603,45 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Microsoft.Extensions.Configuration.Binder/9.0.9": {
+      "sha512": "6SIp/6Bngk4jm2W36JekZbiIbFPdE/eMUtrJEqIqHGpd1zar3jvgnwxnpWQfzUiGrkyY8q8s6V82zkkEZozghA==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.binder/9.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/Microsoft.Extensions.Configuration.Binder.SourceGeneration.dll",
+        "analyzers/dotnet/cs/cs/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/de/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/es/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/fr/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/it/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ja/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ko/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/pl/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/pt-BR/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ru/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/tr/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/zh-Hans/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/zh-Hant/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/net9.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net9.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "microsoft.extensions.configuration.binder.9.0.9.nupkg.sha512",
+        "microsoft.extensions.configuration.binder.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.Configuration.FileExtensions/9.0.0": {
       "sha512": "4EK93Jcd2lQG4GY6PAw8jGss0ZzFP0vPc1J85mES5fKNuDTqgFXHba9onBw2s18fs3I4vdo2AWyfD1mPAxWSQQ==",
       "type": "package",
@@ -4059,6 +4163,64 @@
         "lib/netstandard2.1/Microsoft.Extensions.Options.xml",
         "microsoft.extensions.options.9.0.9.nupkg.sha512",
         "microsoft.extensions.options.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Options.ConfigurationExtensions/9.0.9": {
+      "sha512": "n4DCdnn2qs6V5U06Sx62FySEAZsJiJJgOzrPHDh9hPK7c2W8hEabC76F3Re3tGPjpiKa02RvB6FxZyxo8iICzg==",
+      "type": "package",
+      "path": "microsoft.extensions.options.configurationextensions/9.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Options.ConfigurationExtensions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.ConfigurationExtensions.targets",
+        "lib/net462/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net462/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "microsoft.extensions.options.configurationextensions.9.0.9.nupkg.sha512",
+        "microsoft.extensions.options.configurationextensions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Options.DataAnnotations/9.0.9": {
+      "sha512": "Al+1FXnKKFygTXz0Zsa1+jYEPvsx5dKavlJxMXjRbrL6lmBhQZsVMhjuNB5lWvdRhdoxt5y/Q3v5kbLZLsXWdA==",
+      "type": "package",
+      "path": "microsoft.extensions.options.dataannotations/9.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Options.DataAnnotations.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.DataAnnotations.targets",
+        "lib/net462/Microsoft.Extensions.Options.DataAnnotations.dll",
+        "lib/net462/Microsoft.Extensions.Options.DataAnnotations.xml",
+        "lib/net8.0/Microsoft.Extensions.Options.DataAnnotations.dll",
+        "lib/net8.0/Microsoft.Extensions.Options.DataAnnotations.xml",
+        "lib/net9.0/Microsoft.Extensions.Options.DataAnnotations.dll",
+        "lib/net9.0/Microsoft.Extensions.Options.DataAnnotations.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.DataAnnotations.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.DataAnnotations.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Options.DataAnnotations.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Options.DataAnnotations.xml",
+        "microsoft.extensions.options.dataannotations.9.0.9.nupkg.sha512",
+        "microsoft.extensions.options.dataannotations.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -5298,36 +5460,43 @@
     ]
   },
   "packageFolders": {
-    "/home/swb/.nuget/packages/": {}
+    "C:\\Users\\Swb\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/EquipTrack.Infrastructure.csproj",
+      "projectUniqueName": "C:\\MIN\\Projects\\CMMS\\src\\Infrastructure\\EquipTrack.Infrastructure\\EquipTrack.Infrastructure.csproj",
       "projectName": "EquipTrack.Infrastructure",
-      "projectPath": "/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/EquipTrack.Infrastructure.csproj",
-      "packagesPath": "/home/swb/.nuget/packages/",
-      "outputPath": "/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/",
+      "projectPath": "C:\\MIN\\Projects\\CMMS\\src\\Infrastructure\\EquipTrack.Infrastructure\\EquipTrack.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Swb\\.nuget\\packages\\",
+      "outputPath": "C:\\MIN\\Projects\\CMMS\\src\\Infrastructure\\EquipTrack.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/swb/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Swb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Application/EquipTrack.Application.csproj": {
-              "projectPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Application/EquipTrack.Application.csproj"
+            "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Application\\EquipTrack.Application.csproj": {
+              "projectPath": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Application\\EquipTrack.Application.csproj"
             },
-            "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/EquipTrack.Domain.csproj": {
-              "projectPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Domain/EquipTrack.Domain.csproj"
+            "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Domain\\EquipTrack.Domain.csproj": {
+              "projectPath": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Domain\\EquipTrack.Domain.csproj"
             }
           }
         }
@@ -5342,7 +5511,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -5429,7 +5598,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.1.25451.107/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

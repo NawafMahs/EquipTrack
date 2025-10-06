@@ -1,4 +1,4 @@
-using EquipTrack.Domain.Common;
+using EquipTrack.Core.SharedKernel;
 using EquipTrack.Domain.Enums;
 
 namespace EquipTrack.Domain.Entities;

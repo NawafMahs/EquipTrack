@@ -17,7 +17,7 @@ namespace EquipTrack.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -28,11 +28,21 @@ namespace EquipTrack.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AssetTag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AssetType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Criticality")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -42,6 +52,15 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("InstallationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastMaintenanceDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -53,6 +72,10 @@ namespace EquipTrack.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Metadata")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -63,9 +86,15 @@ namespace EquipTrack.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<DateTime?>("NextMaintenanceDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Notes")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("OperatingHours")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
@@ -96,6 +125,10 @@ namespace EquipTrack.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Assets");
+
+                    b.HasDiscriminator<int>("AssetType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("EquipTrack.Domain.Entities.PreventiveMaintenance", b =>
@@ -187,9 +220,6 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CurrentStock")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -200,6 +230,9 @@ namespace EquipTrack.Infrastructure.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("MinimumStock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinimumStockLevel")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -215,6 +248,9 @@ namespace EquipTrack.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("QuantityInStock")
+                        .HasColumnType("int");
 
                     b.Property<string>("Supplier")
                         .IsRequired()
@@ -270,6 +306,9 @@ namespace EquipTrack.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
+                    b.Property<DateTime?>("LastLoginAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime2");
 
@@ -297,6 +336,10 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -311,10 +354,10 @@ namespace EquipTrack.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("ActualCost")
+                    b.Property<decimal?>("ActualCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("ActualHours")
+                    b.Property<decimal?>("ActualHours")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<Guid>("AssetRef")
@@ -336,7 +379,7 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CreatedByUserRef")
+                    b.Property<Guid?>("CreatedByUserRef")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -344,10 +387,10 @@ namespace EquipTrack.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<decimal>("EstimatedCost")
+                    b.Property<decimal?>("EstimatedCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("EstimatedHours")
+                    b.Property<decimal?>("EstimatedHours")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<int>("Priority")
@@ -438,6 +481,59 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.ToTable("WorkOrderSpareParts");
                 });
 
+            modelBuilder.Entity("EquipTrack.Domain.Entities.Machine", b =>
+                {
+                    b.HasBaseType("EquipTrack.Domain.Entities.Asset");
+
+                    b.Property<decimal?>("CurrentEfficiency")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("DutyCycle")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("MachineTypeRef")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("MaxOperatingTemperature")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PowerRating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("VoltageRequirement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("EquipTrack.Domain.Entities.Robot", b =>
+                {
+                    b.HasBaseType("EquipTrack.Domain.Entities.Asset");
+
+                    b.Property<decimal?>("BatteryLevel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CurrentTask")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CycleCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirmwareVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaxPayloadKg")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ReachMeters")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RobotType")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue(2);
+                });
+
             modelBuilder.Entity("EquipTrack.Domain.Entities.PreventiveMaintenance", b =>
                 {
                     b.HasOne("EquipTrack.Domain.Entities.Asset", "Asset")
@@ -472,8 +568,7 @@ namespace EquipTrack.Infrastructure.Migrations
                     b.HasOne("EquipTrack.Domain.Entities.User", "CreatedByUser")
                         .WithMany("CreatedWorkOrders")
                         .HasForeignKey("CreatedByUserRef")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Asset");
 
@@ -485,7 +580,7 @@ namespace EquipTrack.Infrastructure.Migrations
             modelBuilder.Entity("EquipTrack.Domain.Entities.WorkOrderSparePart", b =>
                 {
                     b.HasOne("EquipTrack.Domain.Entities.Asset", "Asset")
-                        .WithMany("WorkOrderSpareParts")
+                        .WithMany()
                         .HasForeignKey("AssetRef")
                         .OnDelete(DeleteBehavior.SetNull);
 
@@ -511,8 +606,6 @@ namespace EquipTrack.Infrastructure.Migrations
             modelBuilder.Entity("EquipTrack.Domain.Entities.Asset", b =>
                 {
                     b.Navigation("PreventiveMaintenances");
-
-                    b.Navigation("WorkOrderSpareParts");
 
                     b.Navigation("WorkOrders");
                 });

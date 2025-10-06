@@ -95,7 +95,6 @@ public class PreventiveMaintenanceWriteOnlyRepository : IPreventiveMaintenanceWr
         if (preventiveMaintenance != null)
         {
             preventiveMaintenance.NextDueDate = nextDueDate;
-            preventiveMaintenance.SetUpdated(updatedBy);
             _dbSet.Update(preventiveMaintenance);
         }
     }
@@ -107,7 +106,6 @@ public class PreventiveMaintenanceWriteOnlyRepository : IPreventiveMaintenanceWr
         {
             preventiveMaintenance.LastCompletedDate = completedDate;
             preventiveMaintenance.NextDueDate = nextDueDate;
-            preventiveMaintenance.SetUpdated(updatedBy);
             _dbSet.Update(preventiveMaintenance);
         }
     }
@@ -118,7 +116,6 @@ public class PreventiveMaintenanceWriteOnlyRepository : IPreventiveMaintenanceWr
         if (preventiveMaintenance != null)
         {
             preventiveMaintenance.IsActive = isActive;
-            preventiveMaintenance.SetUpdated(updatedBy);
             _dbSet.Update(preventiveMaintenance);
         }
     }

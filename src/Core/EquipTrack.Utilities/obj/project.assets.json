@@ -8,25 +8,32 @@
     "net9.0": []
   },
   "packageFolders": {
-    "/home/swb/.nuget/packages/": {}
+    "C:\\Users\\Swb\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/EquipTrack.Utilities.csproj",
+      "projectUniqueName": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Utilities\\EquipTrack.Utilities.csproj",
       "projectName": "EquipTrack.Utilities",
-      "projectPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/EquipTrack.Utilities.csproj",
-      "packagesPath": "/home/swb/.nuget/packages/",
-      "outputPath": "/media/windows/MIN/Projects/CMMS/src/Core/EquipTrack.Utilities/obj/",
+      "projectPath": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Utilities\\EquipTrack.Utilities.csproj",
+      "packagesPath": "C:\\Users\\Swb\\.nuget\\packages\\",
+      "outputPath": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Utilities\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/swb/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Swb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -45,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -66,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.1.25451.107/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

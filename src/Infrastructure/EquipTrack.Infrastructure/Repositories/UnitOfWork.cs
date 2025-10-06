@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using EquipTrack.Domain.Common;
 using EquipTrack.Infrastructure.Data;
+using EquipTrack.Application.Common.Interfaces;
 
 namespace EquipTrack.Infrastructure.Repositories;
 

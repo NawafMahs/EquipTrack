@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using EquipTrack.Domain.Entities;
-using EquipTrack.Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace EquipTrack.Infrastructure.Data;
 
@@ -28,28 +27,5 @@ public class EquipTrackDbContext : DbContext
         // modelBuilder.Entity<BaseEntity>().HasQueryFilter(e => !e.IsDeleted);
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        var entries = ChangeTracker
-            .Entries()
-            .Where(e => e.Entity is BaseEntity && (
-                e.State == EntityState.Added ||
-                e.State == EntityState.Modified));
-
-        foreach (var entityEntry in entries)
-        {
-            var entity = (BaseEntity)entityEntry.Entity;
-
-            if (entityEntry.State == EntityState.Added)
-            {
-                entity.CreatedAt = DateTime.UtcNow;
-            }
-            else if (entityEntry.State == EntityState.Modified)
-            {
-                entity.UpdatedAt = DateTime.UtcNow;
-            }
-        }
-
-        return await base.SaveChangesAsync(cancellationToken);
-    }
+   
 }

@@ -42,54 +42,9 @@ internal class CreateAssetCommandHandler : IRequestHandler<CreateAssetCommand, R
 
         try
         {
-            // Check if an asset with the same asset tag already exists
-            if (await _readRepository.ExistsByAssetTagAsync(request.AssetTag))
-            {
-                return Result<Guid>.Error($"An asset with asset tag '{request.AssetTag}' already exists.");
-            }
-
-            // Check if an asset with the same serial number already exists
-            if (await _readRepository.ExistsBySerialNumberAsync(request.SerialNumber))
-            {
-                return Result<Guid>.Error($"An asset with serial number '{request.SerialNumber}' already exists.");
-            }
-
-            // Create new asset using the factory method
-            var asset = Asset.Create(
-                request.Name,
-                request.Description,
-                request.SerialNumber, request.Model,
-                request.Manufacturer,
-                request.Location,
-                request.PurchaseDate ?? DateTime.UtcNow,
-                request.PurchaseCost ?? 0m);
-
-            // Set optional purchase information if provided
-            if (request.PurchaseDate != default || request.PurchaseCost != 0)
-            {
-                asset.SetPurchaseInfo(request.PurchaseDate, request.PurchaseCost);
-            }
-
-            // Set installation date if provided
-            // if (request.InstallationDate.HasValue)
-            // {
-            //     asset.SetInstallationDate(request.InstallationDate);
-            // }
-
-            // // Set warranty expiration date if provided
-            // if (request.WarrantyExpirationDate.HasValue)
-            // {
-            //     asset.SetWarrantyExpirationDate(request.WarrantyExpirationDate);
-            // }
-
-            // Add to repository
-            _writeRepository.Add(asset);
-
-            // Save changes
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-            // Return the new asset's ID
-            return Result<Guid>.Success(asset.Id);
+            // Asset is an abstract class and cannot be instantiated directly.
+            // Use specific asset type commands (CreateMachineCommand, CreateRobotCommand, etc.)
+            return Result<Guid>.Error("Cannot create generic Asset. Use specific asset type commands (CreateMachineCommand, CreateRobotCommand, etc.).");
         }
         catch (Exception ex)
         {

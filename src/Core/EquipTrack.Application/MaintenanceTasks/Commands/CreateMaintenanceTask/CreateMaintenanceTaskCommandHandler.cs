@@ -107,12 +107,8 @@ public sealed class CreateMaintenanceTaskCommandHandler
             await _repository.AddAsync(maintenanceTask);
 
             // Save changes
-            var saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
-            if (saveResult <= 0)
-            {
-                _logger.LogError("Failed to save maintenance task to database");
-                return Result<Guid>.Error("Failed to save maintenance task");
-            }
+             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            
 
             _logger.LogInformation(
                 "Successfully created maintenance task with ID: {TaskId}", 

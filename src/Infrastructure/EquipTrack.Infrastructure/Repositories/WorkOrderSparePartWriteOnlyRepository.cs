@@ -93,7 +93,6 @@ public class WorkOrderSparePartWriteOnlyRepository : IWorkOrderSparePartWriteOnl
     {
         var workOrderSpareParts = sparePartUsages.Select(usage => new WorkOrderSparePart
         {
-            Id = Guid.NewGuid(),
             WorkOrderRef = workOrderId,
             SparePartRef = usage.SparePartId,
             QuantityUsed = usage.QuantityUsed

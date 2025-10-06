@@ -31,7 +31,7 @@ public class WorkOrderSparePartConfiguration : IEntityTypeConfiguration<WorkOrde
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(wosp => wosp.Asset)
-            .WithMany(a => a.WorkOrderSpareParts)
+            .WithMany() // Asset doesn't have WorkOrderSpareParts collection
             .HasForeignKey(wosp => wosp.AssetRef)
             .OnDelete(DeleteBehavior.SetNull);
 

@@ -26,14 +26,21 @@ public sealed class CreateMachineCommandHandler : IRequestHandler<CreateMachineC
     {
         try
         {
+            // Generate asset tag from name and timestamp
+            var assetTag = $"MCH-{DateTime.UtcNow:yyyyMMddHHmmss}";
+            
             var machine = Machine.Create(
-                request.Name,
-                request.SerialNumber,
-                request.Model,
-                request.Manufacturer,
-                request.Location,
-                request.InstallationDate,
-                request.MachineTypeRef
+                name: request.Name,
+                description: $"Machine: {request.Name}",
+                serialNumber: request.SerialNumber,
+                model: request.Model,
+                manufacturer: request.Manufacturer,
+                assetTag: assetTag,
+                location: request.Location,
+                purchaseDate: request.InstallationDate, // Use installation date as purchase date if not provided
+                purchasePrice: 0m, // Default to 0 if not provided
+                criticality: Domain.Enums.AssetCriticality.Medium,
+                machineTypeRef: request.MachineTypeRef
             );
 
             await _machineRepository.AddAsync(machine);

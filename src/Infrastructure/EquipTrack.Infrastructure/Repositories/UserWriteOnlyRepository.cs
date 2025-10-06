@@ -103,7 +103,6 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         if (user != null)
         {
             user.LastLoginAt = lastLoginAt;
-            user.UpdatedAt = DateTime.UtcNow;
             _dbSet.Update(user);
         }
     }
@@ -114,7 +113,6 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         if (user != null)
         {
             user.PasswordHash = passwordHash;
-            user.UpdatedAt = DateTime.UtcNow;
             _dbSet.Update(user);
         }
     }
@@ -125,7 +123,6 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         if (user != null)
         {
             user.IsActive = isActive;
-            user.UpdatedAt = DateTime.UtcNow;
             _dbSet.Update(user);
         }
     }

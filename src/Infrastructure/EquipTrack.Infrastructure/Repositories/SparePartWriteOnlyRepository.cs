@@ -95,7 +95,6 @@ public class SparePartWriteOnlyRepository : ISparePartWriteOnlyRepository
         if (sparePart != null)
         {
             sparePart.QuantityInStock = newQuantity;
-            sparePart.SetUpdated(updatedBy);
             _dbSet.Update(sparePart);
         }
     }
@@ -106,7 +105,6 @@ public class SparePartWriteOnlyRepository : ISparePartWriteOnlyRepository
         if (sparePart != null)
         {
             sparePart.QuantityInStock = Math.Max(0, sparePart.QuantityInStock - quantityUsed);
-            sparePart.SetUpdated(updatedBy);
             _dbSet.Update(sparePart);
         }
     }
@@ -117,7 +115,6 @@ public class SparePartWriteOnlyRepository : ISparePartWriteOnlyRepository
         if (sparePart != null)
         {
             sparePart.QuantityInStock += quantityAdded;
-            sparePart.SetUpdated(updatedBy);
             _dbSet.Update(sparePart);
         }
     }

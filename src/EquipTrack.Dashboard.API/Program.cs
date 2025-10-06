@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 using System.Text.Json;
@@ -10,6 +9,8 @@ using EquipTrack.Application.Mappings;
 using EquipTrack.Infrastructure;
 using EquipTrack.Infrastructure.Data;
 using EquipTrack.Application.Extensions;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Serilog

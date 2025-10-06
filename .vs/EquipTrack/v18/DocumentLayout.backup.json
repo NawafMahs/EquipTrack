@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\MIN\\Projects\\CMMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C341EE46-63EA-4692-8E5F-028713AD0372}|src\\Core\\EquipTrack.Domain\\EquipTrack.Domain.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.domain\\repositories\\isparepartreadonlyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C341EE46-63EA-4692-8E5F-028713AD0372}|src\\Core\\EquipTrack.Domain\\EquipTrack.Domain.csproj|solutionrelative:src\\core\\equiptrack.domain\\repositories\\isparepartreadonlyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B18038B-4343-4528-BCC0-203C0591795C}|src\\Infrastructure\\EquipTrack.Infrastructure\\EquipTrack.Infrastructure.csproj|c:\\min\\projects\\cmms\\src\\infrastructure\\equiptrack.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B18038B-4343-4528-BCC0-203C0591795C}|src\\Infrastructure\\EquipTrack.Infrastructure\\EquipTrack.Infrastructure.csproj|solutionrelative:src\\infrastructure\\equiptrack.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.core\\sharedkernel\\baseevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|solutionrelative:src\\core\\equiptrack.core\\sharedkernel\\baseevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.core\\sharedkernel\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|solutionrelative:src\\core\\equiptrack.core\\sharedkernel\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.core\\appsettings\\connectionoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|solutionrelative:src\\core\\equiptrack.core\\appsettings\\connectionoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.core\\appsettings\\cacheoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|solutionrelative:src\\core\\equiptrack.core\\appsettings\\cacheoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|c:\\min\\projects\\cmms\\src\\core\\equiptrack.core\\jsonresolvers\\privateconstructorcontractresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86A1941C-37C5-4CCE-A6B9-0124F7502BFD}|src\\Core\\EquipTrack.Core\\EquipTrack.Core.csproj|solutionrelative:src\\core\\equiptrack.core\\jsonresolvers\\privateconstructorcontractresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ISparePartReadOnlyRepository.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Domain\\Repositories\\ISparePartReadOnlyRepository.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Domain\\Repositories\\ISparePartReadOnlyRepository.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Domain\\Repositories\\ISparePartReadOnlyRepository.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Domain\\Repositories\\ISparePartReadOnlyRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:54:06.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Infrastructure\\EquipTrack.Infrastructure\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\EquipTrack.Infrastructure\\DependencyInjection.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Infrastructure\\EquipTrack.Infrastructure\\DependencyInjection.cs",
+              "RelativeToolTip": "src\\Infrastructure\\EquipTrack.Infrastructure\\DependencyInjection.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAACUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:53:02.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseEvent.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEvent.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEvent.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEvent.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEvent.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:52:26.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEntity.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEntity.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Core\\SharedKernel\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:50:43.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConnectionOptions.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\AppSettings\\ConnectionOptions.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Core\\AppSettings\\ConnectionOptions.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\AppSettings\\ConnectionOptions.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Core\\AppSettings\\ConnectionOptions.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAkwEYAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:50:17.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CacheOptions.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\AppSettings\\CacheOptions.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Core\\AppSettings\\CacheOptions.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\AppSettings\\CacheOptions.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Core\\AppSettings\\CacheOptions.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAYwC8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:50:08.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PrivateConstructorContractResolver.cs",
+              "DocumentMoniker": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\JsonResolvers\\PrivateConstructorContractResolver.cs",
+              "RelativeDocumentMoniker": "src\\Core\\EquipTrack.Core\\JsonResolvers\\PrivateConstructorContractResolver.cs",
+              "ToolTip": "C:\\MIN\\Projects\\CMMS\\src\\Core\\EquipTrack.Core\\JsonResolvers\\PrivateConstructorContractResolver.cs",
+              "RelativeToolTip": "src\\Core\\EquipTrack.Core\\JsonResolvers\\PrivateConstructorContractResolver.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T13:43:53.758Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
