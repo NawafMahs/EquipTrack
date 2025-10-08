@@ -13,10 +13,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class SparePartReadOnlyRepository : ISparePartReadOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<SparePart> _dbSet;
 
-    public SparePartReadOnlyRepository(EquipTrackDbContext context)
+    public SparePartReadOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<SparePart>();

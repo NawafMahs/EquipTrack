@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquipTrack.Infrastructure.Migrations
 {
-    [DbContext(typeof(EquipTrackDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20251002141145_SeedInitialData")]
     partial class SeedInitialData
     {

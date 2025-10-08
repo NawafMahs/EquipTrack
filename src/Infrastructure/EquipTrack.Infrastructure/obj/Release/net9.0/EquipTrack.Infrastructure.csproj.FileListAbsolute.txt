@@ -1,5 +1,0 @@
-/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/Release/net9.0/EquipTrack.Infrastructure.csproj.AssemblyReference.cache
-/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/Release/net9.0/EquipTrack.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/Release/net9.0/EquipTrack.Infrastructure.AssemblyInfoInputs.cache
-/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/Release/net9.0/EquipTrack.Infrastructure.AssemblyInfo.cs
-/media/windows/MIN/Projects/CMMS/src/Infrastructure/EquipTrack.Infrastructure/obj/Release/net9.0/EquipTrack.Infrastructure.csproj.CoreCompileInputs.cache

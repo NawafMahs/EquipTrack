@@ -14,10 +14,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class UserReadOnlyRepository : IUserReadOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<User> _dbSet;
 
-    public UserReadOnlyRepository(EquipTrackDbContext context)
+    public UserReadOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<User>();
@@ -52,7 +52,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
         return await _dbSet.Where(predicate).Select(selector).FirstOrDefaultAsync();
     }
 
-    public virtual async Task<User?> GetByIdAsync(Guid id)
+    public virtual async Task<User?> GetByIdAsync(int id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -67,7 +67,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
         return await _dbSet.AnyAsync(predicate);
     }
 
-    public virtual async Task<bool> AnyAsync(Guid id)
+    public virtual async Task<bool> AnyAsync(int id)
     {
         return await _dbSet.AnyAsync(e => e.Id.Equals(id));
     }
@@ -88,7 +88,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
             .FirstOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<bool> ExistsByUsernameAsync(string username, Guid? excludeId = null)
+    public async Task<bool> ExistsByUsernameAsync(string username, int? excludeId = null)
     {
         var query = _dbSet.Where(u => u.Username == username);
         
@@ -100,7 +100,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
         return await query.AnyAsync();
     }
 
-    public async Task<bool> ExistsByEmailAsync(string email, Guid? excludeId = null)
+    public async Task<bool> ExistsByEmailAsync(string email, int? excludeId = null)
     {
         var query = _dbSet.Where(u => u.Email == email);
         
@@ -195,8 +195,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
             "lastname" => u => u.LastName,
             "role" => u => u.Role,
             "isactive" => u => u.IsActive,
-            "createdat" => u => u.CreatedAt,
-            "updatedat" => u => u.UpdatedAt,
+            "createdat" => u => u.CreatedWorkOrders,
             _ => u => u.Username
         };
 

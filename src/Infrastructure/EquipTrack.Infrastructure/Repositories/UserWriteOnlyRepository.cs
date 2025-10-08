@@ -11,10 +11,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class UserWriteOnlyRepository : IUserWriteOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<User> _dbSet;
 
-    public UserWriteOnlyRepository(EquipTrackDbContext context)
+    public UserWriteOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<User>();
@@ -22,7 +22,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
 
     #region Query Methods (for update operations)
 
-    public virtual async Task<User?> GetByIdAsync(Guid id)
+    public virtual async Task<User?> GetByIdAsync(int id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -51,7 +51,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         _dbSet.Remove(entity);
     }
 
-    public virtual void Remove(Guid id)
+    public virtual void Remove(int id)
     {
         var entity = _dbSet.Find(id);
         if (entity != null)
@@ -79,7 +79,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         await _dbSet.AddAsync(entity);
     }
 
-    public virtual async Task RemoveByIdAsync(Guid id)
+    public virtual async Task RemoveByIdAsync(int id)
     {
         var entity = await _dbSet.FindAsync(id);
         if (entity != null)
@@ -97,7 +97,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
 
     #region User-Specific Methods
 
-    public async Task UpdateLastLoginAsync(Guid userId, DateTime lastLoginAt)
+    public async Task UpdateLastLoginAsync(int userId, DateTime lastLoginAt)
     {
         var user = await _dbSet.FindAsync(userId);
         if (user != null)
@@ -107,7 +107,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         }
     }
 
-    public async Task UpdatePasswordAsync(Guid userId, string passwordHash)
+    public async Task UpdatePasswordAsync(int userId, string passwordHash)
     {
         var user = await _dbSet.FindAsync(userId);
         if (user != null)
@@ -117,7 +117,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
         }
     }
 
-    public async Task UpdateActiveStatusAsync(Guid userId, bool isActive)
+    public async Task UpdateActiveStatusAsync(int userId, bool isActive)
     {
         var user = await _dbSet.FindAsync(userId);
         if (user != null)

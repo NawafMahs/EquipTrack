@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquipTrack.Infrastructure.Migrations
 {
-    [DbContext(typeof(EquipTrackDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class EquipTrackDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -15,8 +15,8 @@ public sealed record CreateMaintenanceTaskCommand : ICommand<Result<Guid>>
     public MaintenanceTaskType Type { get; init; }
     public MaintenanceTaskPriority Priority { get; init; }
     public Guid AssetRef { get; init; }
-    public Guid CreatedByRef { get; init; }
-    public Guid? AssignedTechnicianRef { get; init; }
+    public int CreatedByRef { get; init; }
+    public int? AssignedTechnicianRef { get; init; }
     public DateTime ScheduledDate { get; init; }
     public decimal EstimatedHours { get; init; }
     public decimal EstimatedCost { get; init; }

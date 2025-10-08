@@ -11,10 +11,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class AssetWriteOnlyRepository : IAssetWriteOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<Asset> _dbSet;
 
-    public AssetWriteOnlyRepository(EquipTrackDbContext context)
+    public AssetWriteOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<Asset>();

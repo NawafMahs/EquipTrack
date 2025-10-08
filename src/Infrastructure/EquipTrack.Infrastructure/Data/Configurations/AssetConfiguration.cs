@@ -18,7 +18,7 @@ public class AssetConfiguration : IEntityTypeConfiguration<Asset>
 
         builder.Property(a => a.Name)
             .IsRequired()
-            .HasMaxLength(200);
+            .HasMaxLength(100);
 
         builder.Property(a => a.Description)
             .HasMaxLength(1000);
@@ -64,13 +64,11 @@ public class AssetConfiguration : IEntityTypeConfiguration<Asset>
         // Navigation properties
         builder.HasMany(a => a.WorkOrders)
             .WithOne(wo => wo.Asset)
-            .HasForeignKey(wo => wo.AssetRef)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(wo => wo.AssetRef);
 
         builder.HasMany(a => a.PreventiveMaintenances)
             .WithOne(pm => pm.Asset)
-            .HasForeignKey(pm => pm.AssetRef)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(pm => pm.AssetRef);
 
         // Ignore navigation properties that are not yet implemented in DbContext
         builder.Ignore(a => a.Logs);

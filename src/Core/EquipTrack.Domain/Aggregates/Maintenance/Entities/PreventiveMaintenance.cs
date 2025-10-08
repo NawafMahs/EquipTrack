@@ -18,7 +18,7 @@ public class PreventiveMaintenance : BaseEntity
 
     // Foreign Keys
     public Guid AssetRef { get; set; }
-    public Guid? AssignedToUserRef { get; set; }
+    public int? AssignedToUserRef { get; set; }
 
     // Navigation properties
     public virtual Asset Asset { get; set; } = null!;

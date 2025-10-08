@@ -11,10 +11,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class PreventiveMaintenanceWriteOnlyRepository : IPreventiveMaintenanceWriteOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<PreventiveMaintenance> _dbSet;
 
-    public PreventiveMaintenanceWriteOnlyRepository(EquipTrackDbContext context)
+    public PreventiveMaintenanceWriteOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<PreventiveMaintenance>();

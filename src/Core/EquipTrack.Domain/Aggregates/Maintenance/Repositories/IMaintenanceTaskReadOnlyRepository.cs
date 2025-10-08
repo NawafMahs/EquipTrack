@@ -25,7 +25,7 @@ public interface IMaintenanceTaskReadOnlyRepository : IReadOnlyRepository<Mainte
     /// Gets maintenance tasks assigned to a specific technician.
     /// </summary>
     Task<IEnumerable<MaintenanceTask>> GetByTechnicianRefAsync(
-        Guid technicianRef, 
+        int technicianRef, 
         CancellationToken cancellationToken = default);
     
     /// <summary>

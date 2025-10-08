@@ -7,7 +7,7 @@ namespace EquipTrack.Infrastructure.Data;
 
 public class DataSeeder
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly IPasswordService _passwordService;
     private readonly ILogger<DataSeeder> _logger;
 
@@ -17,7 +17,7 @@ public class DataSeeder
     private List<SparePart> _spareParts = new();
 
     public DataSeeder(
-        EquipTrackDbContext context,
+        ApplicationDbContext context,
         IPasswordService passwordService,
         ILogger<DataSeeder> logger)
     {
@@ -317,7 +317,7 @@ public class DataSeeder
 
     private async Task SeedPreventiveMaintenanceAsync()
     {
-        var techUser = _users.FirstOrDefault(u => u.Role == UserRole.Technician);
+        User? techUser = _users.FirstOrDefault(u => u.Role == UserRole.Technician);
 
         var preventiveMaintenance = new List<PreventiveMaintenance>
         {

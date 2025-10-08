@@ -14,10 +14,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class AssetReadOnlyRepository : IAssetReadOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<Asset> _dbSet;
 
-    public AssetReadOnlyRepository(EquipTrackDbContext context)
+    public AssetReadOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<Asset>();

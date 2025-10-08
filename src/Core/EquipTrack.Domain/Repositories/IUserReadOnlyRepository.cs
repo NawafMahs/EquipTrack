@@ -8,7 +8,7 @@ namespace EquipTrack.Domain.Repositories;
 /// <summary>
 /// Read-only repository interface for User entities.
 /// </summary>
-public interface IUserReadOnlyRepository : IReadOnlyRepository<User, Guid>
+public interface IUserReadOnlyRepository : IReadOnlyRepository<User, int>
 {
     /// <summary>
     /// Gets a user by their username.
@@ -30,7 +30,7 @@ public interface IUserReadOnlyRepository : IReadOnlyRepository<User, Guid>
     /// <param name="username">The username to check.</param>
     /// <param name="excludeId">Optional ID to exclude from the check (for updates).</param>
     /// <returns>True if a user exists with the specified username; otherwise, false.</returns>
-    Task<bool> ExistsByUsernameAsync(string username, Guid? excludeId = null);
+    Task<bool> ExistsByUsernameAsync(string username, int? excludeId = null);
 
     /// <summary>
     /// Checks if a user exists with the specified email address.
@@ -38,7 +38,7 @@ public interface IUserReadOnlyRepository : IReadOnlyRepository<User, Guid>
     /// <param name="email">The email address to check.</param>
     /// <param name="excludeId">Optional ID to exclude from the check (for updates).</param>
     /// <returns>True if a user exists with the specified email; otherwise, false.</returns>
-    Task<bool> ExistsByEmailAsync(string email, Guid? excludeId = null);
+    Task<bool> ExistsByEmailAsync(string email, int? excludeId = null);
 
     /// <summary>
     /// Gets users by role.

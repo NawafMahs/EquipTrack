@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquipTrack.Infrastructure.Migrations
 {
-    [DbContext(typeof(EquipTrackDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250925104114_InitialCreate")]
     partial class InitialCreate
     {

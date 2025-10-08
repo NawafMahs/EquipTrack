@@ -1,0 +1,23 @@
+﻿using EquipTrack.Application.DTOs;
+using EquipTrack.Core.SharedKernel;
+using EquipTrack.Domain.Enums;
+
+namespace EquipTrack.Application.Interfaces;
+
+/// <summary>
+/// Service interface for asset operations.
+/// Note: This interface is kept for backward compatibility.
+/// New implementations should use CQRS pattern with MediatR commands and queries.
+/// </summary>
+public interface IAssetService
+{
+    Task<Result<IEnumerable<AssetQuery>>> GetAllAssetsAsync(CancellationToken cancellationToken = default);
+    Task<Result<AssetQuery>> GetAssetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<IEnumerable<AssetQuery>>> GetAssetsByStatusAsync(AssetStatus status, CancellationToken cancellationToken = default);
+    Task<Result<IEnumerable<AssetQuery>>> GetAssetsByLocationAsync(string location, CancellationToken cancellationToken = default);
+    Task<Result<AssetQuery>> CreateAssetAsync(AssetQuery assetDto, CancellationToken cancellationToken = default);
+    Task<Result<AssetQuery>> UpdateAssetAsync(Guid id, AssetQuery assetDto, CancellationToken cancellationToken = default);
+    Task<Result> DeleteAssetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result> UpdateAssetStatusAsync(Guid id, AssetStatus status, CancellationToken cancellationToken = default);
+    Task<Result<IEnumerable<AssetQuery>>> SearchAssetsAsync(string searchTerm, CancellationToken cancellationToken = default);
+}

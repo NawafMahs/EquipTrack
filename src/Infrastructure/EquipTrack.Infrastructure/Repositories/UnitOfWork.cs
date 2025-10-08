@@ -12,10 +12,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private IDbContextTransaction? _transaction;
 
-    public UnitOfWork(EquipTrackDbContext context)
+    public UnitOfWork(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }

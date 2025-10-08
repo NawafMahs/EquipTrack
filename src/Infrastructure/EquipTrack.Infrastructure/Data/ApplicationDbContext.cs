@@ -1,0 +1,22 @@
+using EquipTrack.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace EquipTrack.Infrastructure.Data;
+
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+    : IdentityDbContext<User, IdentityRole<int>, int>(options)
+{
+    public DbSet<User> Users { get; set; }
+    public DbSet<Asset> Assets { get; set; }
+    public DbSet<WorkOrder> WorkOrders { get; set; }
+    public DbSet<SparePart> SpareParts { get; set; }
+    public DbSet<WorkOrderSparePart> WorkOrderSpareParts { get; set; }
+    public DbSet<PreventiveMaintenance> PreventiveMaintenances { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
+}

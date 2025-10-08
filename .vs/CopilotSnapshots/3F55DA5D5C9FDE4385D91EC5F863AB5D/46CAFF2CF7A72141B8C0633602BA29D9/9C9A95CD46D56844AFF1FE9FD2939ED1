@@ -1,0 +1,39 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+
+namespace EquipTrack.Infrastructure.Data;
+
+/// <summary>
+/// Factory for creating EquipTrackDbContext instances at design time (for migrations)
+/// </summary>
+public class EquipTrackDbContextFactory : IDesignTimeDbContextFactory<EquipTrackDbContext>
+{
+    public EquipTrackDbContext CreateDbContext(string[] args)
+    {
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+        var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+        var basePath = Path.GetDirectoryName(assemblyLocation);
+        
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(basePath ?? Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
+            .AddEnvironmentVariables()
+            .Build();
+
+        var optionsBuilder = new DbContextOptionsBuilder<EquipTrackDbContext>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection") 
+            ?? "Server=localhost,1433;Database=EquipTrackCMMS;User Id=SA;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true";
+        
+        optionsBuilder.UseSqlServer(connectionString, 
+            sqlOptions =>
+            {
+                sqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                sqlOptions.EnableRetryOnFailure(3);
+            });
+
+        return new EquipTrackDbContext(optionsBuilder.Options);
+    }
+}

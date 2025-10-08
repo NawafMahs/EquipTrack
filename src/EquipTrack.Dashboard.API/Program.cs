@@ -1,16 +1,17 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Serilog;
-using System.Text;
-using System.Text.Json;
 using EquipTrack.Application;
+using EquipTrack.Application.Extensions;
 using EquipTrack.Application.Mappings;
 using EquipTrack.Infrastructure;
 using EquipTrack.Infrastructure.Data;
-using EquipTrack.Application.Extensions;
-using Microsoft.OpenApi;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using System.Text;
+using System.Text.Json;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Serilog
@@ -153,7 +154,7 @@ if (app.Environment.IsDevelopment())
 // Apply database migrations and seed data
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<EquipTrackDbContext>();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext >();
     try
     {
         context.Database.Migrate();

@@ -595,13 +595,6 @@
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net9.0/EquipTrack.Tests.Integration.genruntimeconfig.cache
 /media/windows/MIN/Projects/CMMS/tests/EquipTrack.Tests.Integration/obj/Debug/net9.0/ref/EquipTrack.Tests.Integration.dll
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\.msCoverageSourceRootsMapping_EquipTrack.Tests.Integration
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.csproj.AssemblyReference.cache
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\MvcTestingAppManifest.json
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.GeneratedMSBuildEditorConfig.editorconfig
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.AssemblyInfoInputs.cache
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.AssemblyInfo.cs
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.csproj.CoreCompileInputs.cache
-C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.sourcelink.json
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\testhost.dll
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTrack.Dashboard.API.deps.json
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTrack.Dashboard.API.runtimeconfig.json
@@ -1188,6 +1181,13 @@ C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTr
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTrack.Domain.pdb
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTrack.Infrastructure.pdb
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\bin\Debug\net9.0\EquipTrack.Core.pdb
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.csproj.AssemblyReference.cache
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\MvcTestingAppManifest.json
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.GeneratedMSBuildEditorConfig.editorconfig
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.AssemblyInfoInputs.cache
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.AssemblyInfo.cs
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.csproj.CoreCompileInputs.cache
+C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.sourcelink.json
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTra.37E2B4EF.Up2Date
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\EquipTrack.Tests.Integration.dll
 C:\MIN\Projects\CMMS\tests\EquipTrack.Tests.Integration\obj\Debug\net9.0\refint\EquipTrack.Tests.Integration.dll

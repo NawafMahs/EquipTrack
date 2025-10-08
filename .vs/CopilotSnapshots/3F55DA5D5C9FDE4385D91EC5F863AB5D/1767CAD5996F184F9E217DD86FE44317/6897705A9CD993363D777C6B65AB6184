@@ -1,0 +1,157 @@
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using EquipTrack.Application.DTOs;
+using EquipTrack.Application.Interfaces;
+using EquipTrack.Core.SharedKernel;
+using EquipTrack.Domain.Common;
+using EquipTrack.Domain.Entities;
+
+namespace EquipTrack.Infrastructure.Services;
+
+/// <summary>
+/// Spare part service implementation.
+/// Note: This service is deprecated. Use CQRS pattern with MediatR commands and queries instead.
+/// </summary>
+[Obsolete("Use CQRS pattern with MediatR commands and queries instead.")]
+public class SparePartService : ISparePartService
+{
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly ILogger<SparePartService> _logger;
+
+    public SparePartService(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        ILogger<SparePartService> logger)
+    {
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _logger = logger;
+    }
+
+    public async Task<Result<IEnumerable<SparePartQuery>>> GetAllSparePartsAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with GetSparePartsQuery instead.");
+            return Result<IEnumerable<SparePartQuery>>.Success(new List<SparePartQuery>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving all spare parts");
+            return Result<IEnumerable<SparePartQuery>>.Error("An error occurred while retrieving spare parts");
+        }
+    }
+
+    public async Task<Result<SparePartQuery>> GetSparePartByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with GetSparePartByIdQuery instead.");
+            return Result<SparePartQuery>.NotFound($"Spare part with ID {id} not found");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving spare part {SparePartId}", id);
+            return Result<SparePartQuery>.Error("An error occurred while retrieving the spare part");
+        }
+    }
+
+    public async Task<Result<IEnumerable<SparePartQuery>>> GetSparePartsByCategoryAsync(string category, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with GetSparePartsByCategoryQuery instead.");
+            return Result<IEnumerable<SparePartQuery>>.Success(new List<SparePartQuery>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving spare parts by category {Category}", category);
+            return Result<IEnumerable<SparePartQuery>>.Error("An error occurred while retrieving spare parts by category");
+        }
+    }
+
+    public async Task<Result<IEnumerable<SparePartQuery>>> GetLowStockSparePartsAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with GetLowStockSparePartsQuery instead.");
+            return Result<IEnumerable<SparePartQuery>>.Success(new List<SparePartQuery>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving low stock spare parts");
+            return Result<IEnumerable<SparePartQuery>>.Error("An error occurred while retrieving low stock spare parts");
+        }
+    }
+
+    public async Task<Result<SparePartQuery>> CreateSparePartAsync(CreateSparePartCommand createSparePartDto, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with CreateSparePartCommand instead.");
+            return Result<SparePartQuery>.Error("Use CQRS pattern with CreateSparePartCommand instead.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating spare part");
+            return Result<SparePartQuery>.Error("An error occurred while creating the spare part");
+        }
+    }
+
+    public async Task<Result<SparePartQuery>> UpdateSparePartAsync(Guid id, UpdateSparePartCommand updateSparePartDto, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with UpdateSparePartCommand instead.");
+            return Result<SparePartQuery>.Error("Use CQRS pattern with UpdateSparePartCommand instead.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating spare part {SparePartId}", id);
+            return Result<SparePartQuery>.Error("An error occurred while updating the spare part");
+        }
+    }
+
+    public async Task<Result> DeleteSparePartAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with DeleteSparePartCommand instead.");
+            return Result.Error("Use CQRS pattern with DeleteSparePartCommand instead.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting spare part {SparePartId}", id);
+            return Result.Error("An error occurred while deleting the spare part");
+        }
+    }
+
+    public async Task<Result> UpdateStockAsync(Guid id, UpdateStockCommand updateStockDto, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with UpdateStockCommand instead.");
+            return Result.Error("Use CQRS pattern with UpdateStockCommand instead.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating stock for spare part {SparePartId}", id);
+            return Result.Error("An error occurred while updating the stock");
+        }
+    }
+
+    public async Task<Result<IEnumerable<SparePartQuery>>> SearchSparePartsAsync(string searchTerm, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            _logger.LogWarning("SparePartService is deprecated. Use CQRS pattern with SearchSparePartsQuery instead.");
+            return Result<IEnumerable<SparePartQuery>>.Success(new List<SparePartQuery>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error searching spare parts with term {SearchTerm}", searchTerm);
+            return Result<IEnumerable<SparePartQuery>>.Error("An error occurred while searching spare parts");
+        }
+    }
+}

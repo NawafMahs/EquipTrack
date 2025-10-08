@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EquipTrack.Dashboard.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4ad733cc2075e1aef109f520c4b8f927b79e2e8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecfa7ac3c70bb308696b291c76fe7329f36bf0a3")]
 [assembly: System.Reflection.AssemblyProductAttribute("EquipTrack.Dashboard.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EquipTrack.Dashboard.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

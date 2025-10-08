@@ -19,8 +19,8 @@ public sealed class MaintenanceTask : BaseEntity, IAggregateRoot
     
     // Foreign Keys with Ref suffix (following NexusCore convention)
     public Guid AssetRef { get; init; }
-    public Guid? AssignedTechnicianRef { get; private set; }
-    public Guid CreatedByRef { get; init; }
+    public int? AssignedTechnicianRef { get; private set; }
+    public int CreatedByRef { get; init; }
     
     // Mutable state (controlled through domain methods)
     public MaintenanceTaskStatus Status { get; private set; }
@@ -57,7 +57,7 @@ public sealed class MaintenanceTask : BaseEntity, IAggregateRoot
         MaintenanceTaskType type,
         MaintenanceTaskPriority priority,
         Guid assetRef,
-        Guid createdByRef,
+        int createdByRef,
         DateTime scheduledDate,
         decimal estimatedHours,
         decimal estimatedCost)
@@ -67,7 +67,7 @@ public sealed class MaintenanceTask : BaseEntity, IAggregateRoot
         Type = type;
         Priority = priority;
         AssetRef = Ensure.NotEmpty(assetRef, nameof(assetRef));
-        CreatedByRef = Ensure.NotEmpty(createdByRef, nameof(createdByRef));
+        //CreatedByRef = Ensure.NotEmpty(createdByRef, nameof(createdByRef));
         ScheduledDate = Ensure.NotDefault(scheduledDate, nameof(scheduledDate));
         EstimatedHours = Ensure.NotNegative(estimatedHours, nameof(estimatedHours));
         EstimatedCost = Ensure.NotNegative(estimatedCost, nameof(estimatedCost));
@@ -83,7 +83,7 @@ public sealed class MaintenanceTask : BaseEntity, IAggregateRoot
         MaintenanceTaskType type,
         MaintenanceTaskPriority priority,
         Guid assetRef,
-        Guid createdByRef,
+        int createdByRef,
         DateTime scheduledDate,
         decimal estimatedHours,
         decimal estimatedCost)
@@ -105,12 +105,12 @@ public sealed class MaintenanceTask : BaseEntity, IAggregateRoot
     /// <summary>
     /// Assigns a technician to this maintenance task.
     /// </summary>
-    public Result AssignTechnician(Guid technicianRef)
+    public Result AssignTechnician(int technicianRef)
     {
         if (Status is MaintenanceTaskStatus.Completed or MaintenanceTaskStatus.Cancelled)
             return Result.Error("Cannot assign technician to completed or cancelled task");
         
-        AssignedTechnicianRef = Ensure.NotEmpty(technicianRef, nameof(technicianRef));
+       // AssignedTechnicianRef = Ensure.NotEmpty(technicianRef, nameof(technicianRef));
         
         if (Status == MaintenanceTaskStatus.Scheduled)
             Status = MaintenanceTaskStatus.Assigned;

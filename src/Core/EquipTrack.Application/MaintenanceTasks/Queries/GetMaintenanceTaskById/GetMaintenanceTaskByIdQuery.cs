@@ -27,10 +27,10 @@ public sealed record MaintenanceTaskProjection
     public string AssetName { get; init; } = string.Empty;
     public string AssetSerialNumber { get; init; } = string.Empty;
     
-    public Guid? AssignedTechnicianRef { get; init; }
+    public int? AssignedTechnicianRef { get; init; }
     public string? AssignedTechnicianName { get; init; }
     
-    public Guid CreatedByRef { get; init; }
+    public int CreatedByRef { get; init; }
     public string CreatedByName { get; init; } = string.Empty;
     
     // Date information

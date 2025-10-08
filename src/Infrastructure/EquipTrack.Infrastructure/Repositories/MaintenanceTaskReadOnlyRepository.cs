@@ -12,10 +12,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<MaintenanceTask> _dbSet;
 
-    public MaintenanceTaskReadOnlyRepository(EquipTrackDbContext context)
+    public MaintenanceTaskReadOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<MaintenanceTask>();
@@ -93,7 +93,7 @@ public sealed class MaintenanceTaskReadOnlyRepository : IMaintenanceTaskReadOnly
     }
 
     public async Task<IEnumerable<MaintenanceTask>> GetByTechnicianRefAsync(
-        Guid technicianRef,
+        int technicianRef,
         CancellationToken cancellationToken = default)
     {
         return await GetAllQueryable()

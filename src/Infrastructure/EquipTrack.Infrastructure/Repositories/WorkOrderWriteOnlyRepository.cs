@@ -11,10 +11,10 @@ namespace EquipTrack.Infrastructure.Repositories;
 /// </summary>
 public class WorkOrderWriteOnlyRepository : IWorkOrderWriteOnlyRepository
 {
-    private readonly EquipTrackDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<WorkOrder> _dbSet;
 
-    public WorkOrderWriteOnlyRepository(EquipTrackDbContext context)
+    public WorkOrderWriteOnlyRepository(ApplicationDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = _context.Set<WorkOrder>();
