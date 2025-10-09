@@ -1,19 +1,27 @@
 # EquipTrack CMMS - Computerized Maintenance Management System
 
-A comprehensive, production-ready CMMS built with ASP.NET Core 8, following Clean Architecture principles.
+A comprehensive, production-ready CMMS built with .NET 9, following Clean Architecture principles and microservices architecture.
 
 ## 🏗️ Architecture
 
-This project follows **Clean Architecture** with clear separation of concerns:
+This project follows **Clean Architecture** with domain-driven design principles and microservices architecture:
 
 ```
 src/
 ├── Core/
-│   ├── EquipTrack.Domain/          # Domain entities, enums, interfaces
-│   └── EquipTrack.Application/     # Application services, DTOs, interfaces
+│   ├── EquipTrack.Core/           # Core business logic and interfaces
+│   ├── EquipTrack.Domain/         # Domain entities, enums, interfaces
+│   ├── EquipTrack.Application/    # Application services, DTOs, interfaces
+│   └── EquipTrack.Utilities/      # Shared utilities and helpers
 ├── Infrastructure/
-│   └── EquipTrack.Infrastructure/  # Data access, external services
-└── EquipTrack.Dashboard.API/       # Web API controllers, configuration
+│   ├── EquipTrack.Infrastructure/ # Data access, external services
+│   └── EquipTrack.RabbitMQ/      # Message queue implementation
+├── EquipTrack.Dashboard.API/      # Web API controllers, configuration
+└── EquipTrack.Query/             # Query services for data retrieval
+
+tests/
+├── EquipTrack.RabbitMQ.Tests/    # Unit tests for message queue
+└── EquipTrack.Tests.Integration/ # Integration tests
 ```
 
 ## 🚀 Features
@@ -27,7 +35,9 @@ src/
 - **Reports & Dashboards** - Asset performance and maintenance analytics
 
 ### Technical Features
-- **Clean Architecture** with SOLID principles
+- **Clean Architecture** with SOLID principles and DDD
+- **Microservices Architecture** for scalability
+- **Message Queue Integration** with RabbitMQ for async communication
 - **JWT Authentication** with role-based authorization
 - **Entity Framework Core** with SQL Server
 - **Repository + Unit of Work** pattern
@@ -39,7 +49,9 @@ src/
 
 ## 🛠️ Technology Stack
 
-- **Backend**: ASP.NET Core 8 Web API
+- **Backend**: .NET 9
+- **Architecture**: Microservices
+- **Message Queue**: RabbitMQ
 - **Database**: SQL Server with Entity Framework Core
 - **Authentication**: JWT Bearer tokens
 - **Documentation**: Swagger/OpenAPI
@@ -50,8 +62,9 @@ src/
 
 ## 📋 Prerequisites
 
-- .NET 8 SDK
+- .NET 9 SDK
 - SQL Server (LocalDB for development)
+- RabbitMQ Server
 - Visual Studio 2022 or VS Code
 
 ## 🚀 Getting Started
@@ -166,8 +179,11 @@ Serilog is configured to write to both console and file. Logs are stored in the 
 
 ## 🔮 Future Enhancements
 
+- **Event Sourcing**: Implement event sourcing pattern for audit trails
+- **Service Discovery**: Add service registry and discovery
+- **API Gateway**: Implement API gateway for microservices
 - **Frontend**: Blazor Server/WebAssembly UI
-- **Mobile App**: Xamarin/MAUI or Flutter
+- **Mobile App**: .NET MAUI
 - **Cloud Deployment**: Docker containers + Azure DevOps
 - **Real-time Updates**: SignalR for live notifications
 - **File Uploads**: Asset images and work order attachments
